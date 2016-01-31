@@ -21,7 +21,6 @@
   </div>
   {%endif%}
   {% include "auth/_description.html" %}
-  <fieldset hz-login-finder>
     {% if request.user.is_authenticated and 'next' in request.GET %}
     <div class="form-group clearfix error">
       <span class="help-block"><p>{% trans "You do not have permission to access the resource:" %}</p>
@@ -46,11 +45,10 @@
       <input class="loginInput passwd" type="password" id="id_password" name="password"  placeholder="密码"/>
     </div>
 
-  </fieldset>
 {% endblock %}
 
 {% block modal-footer %}
-  <button type="submit">
+  <button type="submit" style="background-color:transparent; border:transparent">
     <div class="trans-bg trans-bg-full"></div>
     <span class="loginInput submitHint">确认</span>
   </button>
