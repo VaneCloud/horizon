@@ -75,6 +75,7 @@ def horizon_nav(context):
                 dash.can_access(context)):
             dashboards.append((dash, SortedDict(non_empty_groups)))
     return {'components': dashboards,
+            'project_show_panel_list': ["overview", "instances", "volumes", "images", "access_and_security"],
             'user': context['request'].user,
             'current': current_dashboard,
             'current_panel_group': current_panel_group,
