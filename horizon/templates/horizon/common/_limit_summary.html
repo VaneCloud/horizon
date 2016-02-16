@@ -30,12 +30,6 @@
       </strong>
     </div>
 
-    <div class="d3_quota_bar">
-      <div class="d3_pie_chart_usage" data-used="{% quotapercent usage.limits.totalSecurityGroupsUsed usage.limits.maxSecurityGroups %}"></div>
-      <strong>{% trans "Security Groups" %} <br />
-        {% blocktrans with used=usage.limits.totalSecurityGroupsUsed|intcomma available=usage.limits.maxSecurityGroups|quotainf|intcomma %}Used <span> {{ used }} </span> of <span> {{ available  }} </span>{% endblocktrans %}
-      </strong>
-    </div>
   {% if usage.limits.totalVolumesUsed >= 0 %}
     <div class="d3_quota_bar">
       <div class="d3_pie_chart_usage" data-used="{% quotapercent usage.limits.totalVolumesUsed usage.limits.maxTotalVolumes %}"></div>
