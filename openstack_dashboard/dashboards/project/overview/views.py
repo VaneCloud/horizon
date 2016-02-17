@@ -25,6 +25,8 @@ from horizon.utils import csvbase
 from horizon import views
 
 from openstack_dashboard import usage
+from django.conf import settings
+from openstack_dashboard.usage import quotas
 
 
 class ProjectUsageCsvRenderer(csvbase.BaseCsvResponse):
@@ -54,6 +56,40 @@ class ProjectOverview(usage.UsageView):
     def get_data(self):
         super(ProjectOverview, self).get_data()
         return self.usage.get_instances()
+
+    def _has_permission(self, policy):
+        has_permission = True
+        policy_check = getattr(settings, "POLICY_CHECK_FUNCTION", None)
+
+        if policy_check:
+            has_permission = policy_check(policy, self.request)
+
+        return has_permission
+
+    def _quota_exceeded(self, quota):
+        usages = quotas.tenant_quota_usages(self.request)
+        available = usages.get(quota, {}).get('available', 1)
+        return available <= 0
+
+    def get_context_data(self, **kwargs):
+        context = super(ProjectOverview, self).get_context_data(**kwargs)
+        network_config = getattr(settings, 'OPENSTACK_NEUTRON_NETWORK', {})
+
+        context['launch_instance_allowed'] = self._has_permission(
+            (("compute", "compute:create"),))
+        context['instance_quota_exceeded'] = self._quota_exceeded('instances')
+        context['create_network_allowed'] = self._has_permission(
+            (("network", "create_network"),))
+        context['network_quota_exceeded'] = self._quota_exceeded('networks')
+        context['create_router_allowed'] = (
+            network_config.get('enable_router', True) and
+            self._has_permission((("network", "create_router"),)))
+        context['router_quota_exceeded'] = self._quota_exceeded('routers')
+        context['console_type'] = getattr(
+            settings, 'CONSOLE_TYPE', 'AUTO')
+        context['show_ng_launch'] = getattr(
+            settings, 'LAUNCH_INSTANCE_NG_ENABLED', False)
+        return context
 
 
 class WarningView(views.HorizonTemplateView):
