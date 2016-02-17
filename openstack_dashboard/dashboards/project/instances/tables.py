@@ -1015,7 +1015,9 @@ class InstancesTable(tables.DataTable):
                        verbose_name=_("IP Address"),
                        attrs={'data-type': "ip"})
     size = tables.Column(get_size, sortable=False, verbose_name=_("Size"))
-    keypair = tables.Column(get_keyname, verbose_name=_("Key Pair"))
+    keypair = tables.Column(get_keyname,
+                            hidden=True,
+                            verbose_name=_("Key Pair"))
     status = tables.Column("status",
                            filters=(title, filters.replace_underscores),
                            verbose_name=_("Status"),
@@ -1023,18 +1025,22 @@ class InstancesTable(tables.DataTable):
                            status_choices=STATUS_CHOICES,
                            display_choices=STATUS_DISPLAY_CHOICES)
     az = tables.Column("availability_zone",
+                       hidden=True,
                        verbose_name=_("Availability Zone"))
     task = tables.Column("OS-EXT-STS:task_state",
                          verbose_name=_("Task"),
                          empty_value=TASK_DISPLAY_NONE,
                          status=True,
                          status_choices=TASK_STATUS_CHOICES,
+                         hidden=True,
                          display_choices=TASK_DISPLAY_CHOICES)
     state = tables.Column(get_power_state,
                           filters=(title, filters.replace_underscores),
                           verbose_name=_("Power State"),
+                          hidden=True,
                           display_choices=POWER_DISPLAY_CHOICES)
     created = tables.Column("created",
+                            hidden=True,
                             verbose_name=_("Time since created"),
                             filters=(filters.parse_isotime,
                                      filters.timesince_sortable),
