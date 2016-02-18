@@ -141,6 +141,7 @@ class IndexView(tables.DataTableView):
 
 class LaunchInstanceView(workflows.WorkflowView):
     workflow_class = project_workflows.LaunchInstance
+    ajax_template_name = 'horizon/common/_workflow_vc.html'
 
     def get_initial(self):
         initial = super(LaunchInstanceView, self).get_initial()
