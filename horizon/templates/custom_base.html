@@ -21,27 +21,26 @@
       </div>
     </noscript>
     {% block content %}
-      <div id="container">
         <header id="header" class="clearfix bg-black topbar" data-spy="affix" data-offset-top="65">
           {% include "_header.html" %}
         </header>
-        <div id='main_content'>
+        {% block sidebar %}
+           {% include 'horizon/common/_sidebar.html' %}
+         {% endblock %}
+
+      <section id='content'>
+        <div class="container">
           {% include "horizon/_messages.html" %}
-          {% block sidebar %}
-            {% include 'horizon/common/_sidebar.html' %}
-          {% endblock %}
-          <div id='content_body'>
             <div class="row">
               <div class="col-xs-12">
                 {% block page_header %}
                   {% include "horizon/common/_page_header.html" with title=page_title %}
                 {% endblock %}
                 {% block main %}{% endblock %}
-              </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     {% endblock %}
     <div id="footer">
       {% block footer %}{% endblock %}
