@@ -1,48 +1,69 @@
 {% load i18n horizon humanize sizeformat %}
-
-<div class="quota-dynamic">
-  <h3 class="quota-heading">{% trans "Limit Summary" %}</h3>
-    <div class="d3_quota_bar">
-      <div class="d3_pie_chart_usage" data-used="{% quotapercent usage.limits.totalInstancesUsed usage.limits.maxTotalInstances %}"></div>
-      <strong>{% trans "Instances" %} <br />
-        {% blocktrans with used=usage.limits.totalInstancesUsed|intcomma available=usage.limits.maxTotalInstances|quotainf|intcomma %}Used <span> {{ used }} </span> of <span> {{ available }} </span>{% endblocktrans %}
-      </strong>
+<div class="col-sm-12">
+  <div class="tile">
+    <div class="t-header bg-black th-alt">
+      <div class="th-title">{% trans "Limit Summary" %}</div>
     </div>
-
-    <div class="d3_quota_bar">
-      <div class="d3_pie_chart_usage" data-used="{% quotapercent usage.limits.totalCoresUsed usage.limits.maxTotalCores %}"></div>
-      <strong>{% trans "VCPUs" %} <br />
-        {% blocktrans with used=usage.limits.totalCoresUsed|intcomma available=usage.limits.maxTotalCores|quotainf|intcomma %}Used <span> {{ used }} </span> of <span> {{ available }} </span>{% endblocktrans %}
-      </strong>
+    <br/>
+    <div class="t-body">
+      <div class="row">
+        <div class="col-md-2 col-sm-4">
+          <div class="bg-white text-center p-15">
+            <div class="pie-chart-tiny-red po-item color-black" data-percent="{% quotapercent usage.limits.totalInstancesUsed usage.limits.maxTotalInstances %}">
+              <span class="poi-percent">{% quotapercent usage.limits.totalInstancesUsed usage.limits.maxTotalInstances %}</span>
+              <div class="poi-title">{% trans "Instances" %}<br/>
+                {% blocktrans with used=usage.limits.totalInstancesUsed|intcomma available=usage.limits.maxTotalInstances|quotainf|intcomma %}Used <span> {{ used }} </span> of <span> {{ available }} </span>{% endblocktrans %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2 col-sm-4">
+          <div class="bg-white text-center p-15">
+            <div class="pie-chart-tiny-blue po-item color-black" data-percent="{% quotapercent usage.limits.totalCoresUsed usage.limits.maxTotalCores %}">
+              <span class="poi-percent">{% quotapercent usage.limits.totalCoresUsed usage.limits.maxTotalCores %}</span>
+              <div class="poi-title">{% trans "VCPUs" %}<br/>
+                {% blocktrans with used=usage.limits.totalCoresUsed|intcomma available=usage.limits.maxTotalCores|quotainf|intcomma %}Used <span> {{ used }} </span> of <span> {{ available }} </span>{% endblocktrans %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2 col-sm-4">
+          <div class="bg-white text-center p-15">
+            <div class="pie-chart-tiny-yellow po-item color-black" data-percent="{% quotapercent usage.limits.totalRAMUsed usage.limits.maxTotalRAMSize %}">
+              <span class="poi-percent">{% quotapercent usage.limits.totalRAMUsed usage.limits.maxTotalRAMSize %}</span>
+              <div class="poi-title">{% trans "RAM" %}<br/>{% blocktrans with used=usage.limits.totalRAMUsed|mb_float_format available=usage.limits.maxTotalRAMSize|quotainf|mb_float_format %}Used <span> {{ used }} </span> of <span> {{ available }} </span>{% endblocktrans %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2 col-sm-4">
+          <div class="bg-white text-center p-15">
+            <div class="pie-chart-tiny-green po-item color-black" data-percent="{% quotapercent usage.limits.totalFloatingIpsUsed usage.limits.maxTotalFloatingIps %}">
+              <span class="poi-percent">{% quotapercent usage.limits.totalFloatingIpsUsed usage.limits.maxTotalFloatingIps %}</span>
+              <div class="poi-title">{% trans "Floating IPs" %} <br/>{% blocktrans with used=usage.limits.totalFloatingIpsUsed|intcomma available=usage.limits.maxTotalFloatingIps|quotainf|intcomma %}Allocated <span> {{ used }} </span> of <span> {{ available }} </span>{% endblocktrans %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2 col-sm-4">
+          <div class="bg-white text-center p-15">
+            <div class="pie-chart-tiny-grey po-item color-black" data-percent="{% quotapercent usage.limits.totalVolumesUsed usage.limits.maxTotalVolumes %}">
+              <span class="poi-percent">{% quotapercent usage.limits.totalVolumesUsed usage.limits.maxTotalVolumes %}</span>
+              <div class="poi-title">{% trans "Volumes" %} <br/>{% blocktrans with used=usage.limits.totalVolumesUsed|intcomma available=usage.limits.maxTotalVolumes|quotainf|intcomma %}Used <span> {{ used }} </span> of <span> {{ available }} </span>{% endblocktrans %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2 col-sm-4">
+          <div class="bg-white text-center p-15">
+            <div class="pie-chart-tiny-orange po-item color-black" data-percent="{% quotapercent usage.limits.totalGigabytesUsed usage.limits.maxTotalVolumeGigabytes %}">
+              <span class="poi-percent">{% quotapercent usage.limits.totalGigabytesUsed usage.limits.maxTotalVolumeGigabytes %}</span>
+              <div class="poi-title">{% trans "Volume Storage" %} <br/>{% blocktrans with used=usage.limits.totalGigabytesUsed|diskgbformat available=usage.limits.maxTotalVolumeGigabytes|quotainf|diskgbformat %}Used <span> {{ used }} </span> of <span> {{ available  }} </span>{% endblocktrans %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <div class="d3_quota_bar">
-      <div class="d3_pie_chart_usage" data-used="{% quotapercent usage.limits.totalRAMUsed usage.limits.maxTotalRAMSize %}"></div>
-      <strong>{% trans "RAM" %} <br />
-        {% blocktrans with used=usage.limits.totalRAMUsed|mb_float_format available=usage.limits.maxTotalRAMSize|quotainf|mb_float_format %}Used <span> {{ used }} </span> of <span> {{ available }} </span>{% endblocktrans %}
-      </strong>
-    </div>
-
-    <div class="d3_quota_bar">
-      <div class="d3_pie_chart_usage" data-used="{% quotapercent usage.limits.totalFloatingIpsUsed usage.limits.maxTotalFloatingIps %}"></div>
-      <strong>{% trans "Floating IPs" %} <br />
-        {% blocktrans with used=usage.limits.totalFloatingIpsUsed|intcomma available=usage.limits.maxTotalFloatingIps|quotainf|intcomma %}Allocated <span> {{ used }} </span> of <span> {{ available }} </span>{% endblocktrans %}
-      </strong>
-    </div>
-
-  {% if usage.limits.totalVolumesUsed >= 0 %}
-    <div class="d3_quota_bar">
-      <div class="d3_pie_chart_usage" data-used="{% quotapercent usage.limits.totalVolumesUsed usage.limits.maxTotalVolumes %}"></div>
-      <strong>{% trans "Volumes" %} <br />
-        {% blocktrans with used=usage.limits.totalVolumesUsed|intcomma available=usage.limits.maxTotalVolumes|quotainf|intcomma %}Used <span> {{ used }} </span> of <span> {{ available }} </span>{% endblocktrans %}
-      </strong>
-    </div>
-
-    <div class="d3_quota_bar">
-      <div class="d3_pie_chart_usage" data-used="{% quotapercent usage.limits.totalGigabytesUsed usage.limits.maxTotalVolumeGigabytes %}"></div>
-      <strong>{% trans "Volume Storage" %} <br />
-        {% blocktrans with used=usage.limits.totalGigabytesUsed|diskgbformat available=usage.limits.maxTotalVolumeGigabytes|quotainf|diskgbformat %}Used <span> {{ used }} </span> of <span> {{ available  }} </span>{% endblocktrans %}
-      </strong>
-    </div>
-  {% endif %}
+  </div>    
 </div>
