@@ -23,6 +23,7 @@ doc/build/
 doc/source/sourcecode
 /static/
 .venv
+env/
 .tox
 build
 dist
