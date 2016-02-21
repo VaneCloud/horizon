@@ -2,12 +2,103 @@
 {% load i18n %}
 {% block title %}{% trans "Instance Overview" %}{% endblock %}
 
+{% block page_header %}
+  {% include "horizon/common/_page_header.html" with title=_("Overview") %}
+{% endblock page_header %}
+
 {% block main %}
   {% include "horizon/common/_limit_summary.html" %}
 
   {% if simple_tenant_usage_enabled %}
     {% include "horizon/common/_usage_summary.html" %}
     {{ table.render }}
+    {% if meteringFeatureEnabled %}
+    <h3 class="quota-heading">
+          {{_("Costs")}}
+    </h3>
+
+    <table id="tStaff" class="table table-bordered table-striped datatable">
+      <thead>
+        <tr class="tablesorter-headerRow">
+          <th class="sortable normal_column" width="20%" style="text-align:center;">{{_("VCPU Costs")}}</th>
+          <th class="sortable normal_column" width="16%" style="text-align:center;">{{_("Memory Costs")}}</th>
+          <th class="sortable normal_column" width="16%" style="text-align:center;">{{_("Disk Costs")}}</th>
+          <th class="sortable normal_column" width="16%" style="text-align:center;">{{_("Total Costs")}}</th>
+        </tr>
+      </thead>
+      <tbody> 
+        <tr>
+          <td align="center">
+            {% ifequal currency 1 %}
+              ￥
+            {% endifequal %}
+            {% ifequal currency 2 %}
+              $
+            {% endifequal %}
+            {% ifequal currency 3 %}
+              €
+            {% endifequal %}
+            {% ifequal currency 4 %}
+              £
+            {% endifequal %}
+            {{vcpuMoney|floatformat:2|default:'0'}}
+          </td>
+          <td align="center">
+            {% ifequal currency 1 %}
+              ￥
+            {% endifequal %}
+            {% ifequal currency 2 %}
+              $
+            {% endifequal %}
+            {% ifequal currency 3 %}
+              €
+            {% endifequal %}
+            {% ifequal currency 4 %}
+              £
+            {% endifequal %}
+            {{memoryMoney|floatformat:2|default:'0'}}
+          </td>
+          <td align="center">
+            {% ifequal currency 1 %}
+              ￥
+            {% endifequal %}
+            {% ifequal currency 2 %}
+              $
+            {% endifequal %}
+            {% ifequal currency 3 %}
+              €
+            {% endifequal %}
+            {% ifequal currency 4 %}
+              £
+            {% endifequal %}
+            {{diskMoney|floatformat:2|default:'0'}}
+          </td>
+          <td align="center">
+            {% ifequal currency 1 %}
+              ￥
+            {% endifequal %}
+            {% ifequal currency 2 %}
+              $
+            {% endifequal %}
+            {% ifequal currency 3 %}
+              €
+            {% endifequal %}
+            {% ifequal currency 4 %}
+              £
+            {% endifequal %}
+            {{totalMoney|floatformat:2|default:'0'}}
+          </td>
+        </tr> 
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="12">
+              <span>{% trans "Displaying costs" %}</span> 
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+    {% endif %}
   {% endif %}
 
   <noscript>

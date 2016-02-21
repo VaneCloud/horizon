@@ -6,3 +6,10 @@
 {% trans "Total Memory Usage (Hours)" %}:,{{ usage.summary.memory_mb_hours|floatformat:2 }}
 {% trans "Total Disk Size (GB)" %}:,{{ usage.summary.local_gb }}
 {% trans "Total Disk Usage (Hours)" %}:,{{ usage.summary.disk_gb_hours|floatformat:2 }}
+
+{% if meteringFeatureEnabled %}
+    {% trans "VCPU Costs" %}:,{{vcpuMoney|floatformat:2|default:'0'}}
+    {% trans "Memory Costs" %}:,{{memoryMoney|floatformat:2|default:'0'}}
+    {% trans "Disk Costs" %}:,{{diskMoney|floatformat:2|default:'0'}}
+    {% trans "Total Costs" %}:,{{totalMoney|floatformat:2|default:'0'}}
+{% endif %}

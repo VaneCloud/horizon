@@ -16765,3 +16765,55 @@ msgstr "时间增量必须以天数间隔表示"
 #, python-format
 msgid "Failed to get the resource name: %s"
 msgstr "获取资源名为：%s 失败"
+
+# metering 功能国际化 2015-07-08 by mingya wang
+msgid "Set Price"
+msgstr "设定单价"
+
+msgid "Please select the currency"
+msgstr "请选择货币单位"
+
+msgid "CNY"
+msgstr "人民币"
+
+msgid "USD"
+msgstr "美元"
+
+msgid "EUR"
+msgstr "欧元"
+
+msgid "GBP"
+msgstr "英镑"
+
+msgid "Vcpu per hour price"
+msgstr "虚拟内核单价"
+
+msgid "Memory per mb/hour price"
+msgstr "内存MB/小时单价"
+
+msgid "Disk per gb/hour price"
+msgstr "硬盘GB/小时单价"
+
+msgid "Costs"
+msgstr "费用"
+
+msgid "VCPU Costs"
+msgstr "虚拟内核费用"
+
+msgid "Memory Costs"
+msgstr "内存费用"
+
+msgid "Disk Costs"
+msgstr "硬盘费用"
+
+msgid "Total Costs"
+msgstr "总费用"
+
+msgid "Update successfully!"
+msgstr "更新成功！"
+
+msgid "Update failed!"
+msgstr "更新失败！"
+
+msgid "Please input correct value!"
+msgstr "更新失败，请输入正确的单价！"

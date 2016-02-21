@@ -41,6 +41,9 @@ from horizon.utils.memoized import memoized  # noqa
 from openstack_dashboard.api import base
 from openstack_dashboard.api import network_base
 
+from horizon import API
+
+from horizon import approvalConfig
 
 LOG = logging.getLogger(__name__)
 
@@ -164,7 +167,10 @@ class NovaUsage(base.APIResourceWrapper):
                 'vcpu_hours': self.vcpu_hours,
                 'local_gb': self.local_gb,
                 'disk_gb_hours': self.disk_gb_hours,
-                'memory_mb_hours': self.memory_mb_hours}
+                'memory_mb_hours':self.memory_mb_hours,
+                'vcpu_costs':self.vcpu_costs,
+                'memory_costs':self.memory_costs,
+                'disk_costs':self.disk_costs}
 
     @property
     def total_active_instances(self):
@@ -189,6 +195,38 @@ class NovaUsage(base.APIResourceWrapper):
         return sum(s['memory_mb'] for s in self.server_usages
                    if s['ended_at'] is None)
 
+    ###################################################
+    @property
+    def memory_mb_hours(self):
+        return getattr(self, "total_memory_mb_usage", 0)
+    ###################################################
+    
+    #--------------------------------------------------
+    @property
+    def vcpu_costs(self):
+        vcpu_hours = getattr(self, "total_hours", 0)
+        prices = API.getPrice()
+        vcpuprice = prices[0]
+        vcpu_costs = vcpu_hours * vcpuprice
+        return vcpu_costs
+    
+    @property
+    def memory_costs(self):
+        memory_mb_hours = getattr(self, "total_memory_mb_usage", 0)
+        prices = API.getPrice()
+        memoryprice = prices[1]
+        memory_costs = memory_mb_hours * memoryprice
+        return memory_costs
+
+    @property
+    def disk_costs(self):
+        disk_hours = getattr(self, "total_local_gb_usage", 0)
+        prices = API.getPrice()
+        diskprice = prices[2]
+        disk_costs = disk_hours * diskprice
+        return disk_costs
+    #--------------------------------------------------
+    
     @property
     def disk_gb_hours(self):
         return getattr(self, "total_local_gb_usage", 0)

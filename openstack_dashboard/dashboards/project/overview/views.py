@@ -28,12 +28,15 @@ from openstack_dashboard import usage
 from django.conf import settings
 from openstack_dashboard.usage import quotas
 
+from horizon import API
+
+from horizon import meteringConfig
 
 class ProjectUsageCsvRenderer(csvbase.BaseCsvResponse):
 
     columns = [_("Instance Name"), _("VCPUs"), _("RAM (MB)"),
                _("Disk (GB)"), _("Usage (Hours)"),
-               _("Time since created (Seconds)"), _("State")]
+               _("Uptime (Seconds)"), _("State")]
 
     def get_row_data(self):
 
@@ -73,6 +76,30 @@ class ProjectOverview(usage.UsageView):
 
     def get_context_data(self, **kwargs):
         context = super(ProjectOverview, self).get_context_data(**kwargs)
+
+        context['meteringFeatureEnabled'] = meteringConfig.meteringFeatureEnabled
+
+        if meteringConfig.meteringFeatureEnabled:
+            vcpu_hours = self.usage.summary['vcpu_hours']
+            memory_mb_hours = self.usage.summary['memory_mb_hours']
+            disk_gb_hours = self.usage.summary['disk_gb_hours']
+
+            prices = API.getPrice()
+            vcpupricePer = prices[0]
+            memorypricePer = prices[1]
+            diskpricePer = prices[2]
+            currency = prices[3]
+
+            vcpuMoney = vcpu_hours * vcpupricePer
+            memoryMoney = memory_mb_hours * memorypricePer
+            diskMoney = disk_gb_hours * diskpricePer
+            totalMoney = vcpuMoney + diskMoney + memoryMoney
+
+            context['vcpuMoney'] = vcpuMoney
+            context['memoryMoney'] = memoryMoney
+            context['diskMoney'] = diskMoney
+            context['totalMoney'] = totalMoney
+            context['currency'] = currency
         network_config = getattr(settings, 'OPENSTACK_NEUTRON_NETWORK', {})
 
         context['launch_instance_allowed'] = self._has_permission(
