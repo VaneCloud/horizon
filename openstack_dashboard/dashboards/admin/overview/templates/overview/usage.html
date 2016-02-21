@@ -2,6 +2,10 @@
 {% load i18n %}
 {% block title %}{% trans "Usage Overview" %}{% endblock %}
 
+{% block page_header %}
+  {% include "horizon/common/_page_header.html" with title=_("Overview") %}
+{% endblock page_header %}
+
 {% block main %}
   {% if monitoring %}
     <div id="monitoring">
@@ -17,5 +21,63 @@
   {% if simple_tenant_usage_enabled %}
     {% include "horizon/common/_usage_summary.html" %}
     {{ table.render }}
+    
+    {% if meteringFeatureEnabled %}
+      <h3 class="quota-heading">
+          {{_("Set Price")}}
+      </h3>
+   
+      <form action="." method="get" id="set_money" class="form-inline">
+          <input name="update_price_name" id="update_price_id" type="hidden" value="update">
+          <input name="update_currency_name" id="update_currency_id" type="hidden" value="update">
+          <div class="datepicker form-group">
+            <label>{{_("Please select the currency")}}: </label>
+            <select name='currencyName' id="currencyId">
+              {% ifequal currency 1 %}
+                <option value ="1" selected="selected">{{_("CNY")}}(￥)</option>
+              {% else %}  
+                <option value ="1">{{_("CNY")}}(￥)</option>
+              {% endifequal %}
+
+              {% ifequal currency 2 %}
+                <option value ="2" selected="selected">{{_("USD")}}($)</option>
+              {% else %}  
+                <option value ="2">{{_("USD")}}($)</option>
+              {% endifequal %}
+
+              {% ifequal currency 3 %}
+                <option value ="3" selected="selected">{{_("EUR")}}(€)</option>
+              {% else %}  
+                <option value ="3">{{_("EUR")}}(€)</option>
+              {% endifequal %}
+
+              {% ifequal currency 4 %}
+                <option value ="4" selected="selected">{{_("GBP")}}(£)</option>
+              {% else %}  
+                <option value ="4">{{_("GBP")}}(£)</option>
+              {% endifequal %}
+
+              
+            </select>
+          </div>
+          <br>
+          <br>
+          <div class="datepicker form-group">
+            <label>{{_("Vcpu per hour price")}}:</label> <input type="text" name="vcpu_per_hour_price" value="{{vcpu_per_hour_price}}">
+          </div>
+          <div class="datepicker form-group">
+            <label>{{_("Memory per mb/hour price")}}:</label> <input type="text" name="memory_per_hour_price" value="{{memory_per_hour_price}}">
+          </div>
+          <div class="datepicker form-group">
+            <label>{{_("Disk per gb/hour price")}}:</label> <input type="text" name="disk_per_hour_price" value="{{disk_per_hour_price}}">
+          </div>
+          <button class="btn btn-warning" type="submit">{% trans "Update" %}</button>
+      </form>
+    {% endif %}
   {% endif %}
+
+<!-- <script type="text/javascript">
+  $("#approvalFlavorUserCreateName_form_id").val(textflavorUserCreateName);
+</script> -->
+
 {% endblock %}

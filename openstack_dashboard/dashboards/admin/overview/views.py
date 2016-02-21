@@ -27,20 +27,41 @@ from horizon.utils import csvbase
 from openstack_dashboard import api
 from openstack_dashboard import usage
 
+from horizon import views
+
+from horizon import messages
+
+from horizon import API
+
+from horizon import meteringConfig
 
 class GlobalUsageCsvRenderer(csvbase.BaseCsvResponse):
 
-    columns = [_("Project Name"), _("VCPUs"), _("RAM (MB)"),
+    if meteringConfig.meteringFeatureEnabled:
+        columns = [_("Project Name"), _("VCPUs"), _("RAM (MB)"),
+               _("Disk (GB)"), _("Usage (Hours)"), _("VCPU Costs"), _("Memory Costs"), _("Disk Costs")]
+    else:
+        columns = [_("Project Name"), _("VCPUs"), _("RAM (MB)"),
                _("Disk (GB)"), _("Usage (Hours)")]
 
     def get_row_data(self):
-
-        for u in self.context['usage'].usage_list:
-            yield (u.project_name or u.tenant_id,
-                   u.vcpus,
-                   u.memory_mb,
-                   u.local_gb,
-                   floatformat(u.vcpu_hours, 2))
+        if meteringConfig.meteringFeatureEnabled:
+            for u in self.context['usage'].usage_list:
+                yield (u.project_name or u.tenant_id,
+                       u.vcpus,
+                       u.memory_mb,
+                       u.local_gb,
+                       floatformat(u.vcpu_hours, 2),
+                       floatformat(u.vcpu_costs, 2),
+                       floatformat(u.memory_costs, 2),
+                       floatformat(u.disk_costs,2))
+        else:
+            for u in self.context['usage'].usage_list:
+                yield (u.project_name or u.tenant_id,
+                       u.vcpus,
+                       u.memory_mb,
+                       u.local_gb,
+                       floatformat(u.vcpu_hours, 2))
 
 
 class GlobalOverview(usage.UsageView):
@@ -52,6 +73,54 @@ class GlobalOverview(usage.UsageView):
     def get_context_data(self, **kwargs):
         context = super(GlobalOverview, self).get_context_data(**kwargs)
         context['monitoring'] = getattr(settings, 'EXTERNAL_MONITORING', [])
+
+        request = self.request
+
+        if meteringConfig.meteringFeatureEnabled:
+            ifUpdatePrice = request.GET.get("update_price_name")
+
+            prices = API.getPrice()
+
+            vcpu_per_hour_price = prices[0]
+            memory_per_hour_price = prices[1]
+            disk_per_hour_price = prices[2]
+            currency = prices[3]
+            
+            if ifUpdatePrice == 'update':
+                vcpu_per_hour_price = request.GET.get("vcpu_per_hour_price")
+                memory_per_hour_price = request.GET.get("memory_per_hour_price")
+                disk_per_hour_price = request.GET.get("disk_per_hour_price")
+                currency = request.GET.get("currencyName")
+                isNum = True
+                try: 
+                    float(vcpu_per_hour_price)
+                    float(memory_per_hour_price)
+                    float(disk_per_hour_price)
+                except(ValueError): 
+                    isNum = False
+                if isNum:
+                    flag = API.updatePrice(vcpu_per_hour_price,memory_per_hour_price,disk_per_hour_price,currency)
+                    if flag:
+                        messages.success(request,_("Update successfully!"))
+                    else:
+                        vcpu_per_hour_price = prices[0]
+                        memory_per_hour_price = prices[1]
+                        disk_per_hour_price = prices[2]
+                        currency = prices[3]
+                        messages.error(request,_("Update failed!"))
+                else:
+                    vcpu_per_hour_price = prices[0]
+                    memory_per_hour_price = prices[1]
+                    disk_per_hour_price = prices[2]
+                    currency = prices[3]
+                    messages.error(request,_("Please input correct value!"))
+
+            context['vcpu_per_hour_price'] = vcpu_per_hour_price
+            context['memory_per_hour_price'] = memory_per_hour_price
+            context['disk_per_hour_price'] = disk_per_hour_price
+            context['currency'] = currency
+            
+        context['meteringFeatureEnabled'] = meteringConfig.meteringFeatureEnabled
         return context
 
     def get_data(self):

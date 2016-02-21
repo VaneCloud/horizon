@@ -19,6 +19,9 @@ from horizon import tables
 from horizon.templatetags import sizeformat
 from horizon.utils import filters
 
+from horizon import API
+
+from horizon import meteringConfig
 
 class CSVSummary(tables.LinkAction):
     name = "csv_summary"
@@ -37,6 +40,12 @@ class BaseUsageTable(tables.DataTable):
                            verbose_name=_("RAM"),
                            filters=(sizeformat.mb_float_format,),
                            attrs={"data-type": "size"})
+    hours = tables.Column('vcpu_hours', verbose_name=_("VCPU Hours"),
+                          filters=(lambda v: floatformat(v, 2),))
+
+
+    vcpu_hours_money = tables.Column('vcpu_costs', verbose_name=_("VCPU Costs"),
+                          filters=(lambda v: floatformat(v, 2),))
 
 
 class GlobalUsageTable(BaseUsageTable):
@@ -56,6 +65,14 @@ class GlobalUsageTable(BaseUsageTable):
                                  help_text=_("Total memory usage (MB * "
                                              "Hours Used) for the project"),
                                  filters=(lambda v: floatformat(v, 2),))
+    memory_hours_money = tables.Column('memory_costs',
+                               verbose_name=_("Memory Costs"),
+                               filters=(lambda v: floatformat(v, 2),))
+
+
+    disk_hours_money = tables.Column('disk_costs',
+                               verbose_name=_("Disk Costs"),
+                               filters=(lambda v: floatformat(v, 2),))
 
     def get_object_id(self, datum):
         return datum.tenant_id
@@ -64,8 +81,12 @@ class GlobalUsageTable(BaseUsageTable):
         name = "global_usage"
         hidden_title = False
         verbose_name = _("Usage")
-        columns = ("project", "vcpus", "disk", "memory",
-                   "vcpu_hours", "disk_hours", "memory_hours")
+        if meteringConfig.meteringFeatureEnabled:
+          columns = ("project", "vcpus", "disk", "memory",
+                   "hours", "disk_hours", "vcpu_hours_money", "memory_hours_money", "disk_hours_money")
+	else:
+          columns = ("project", "vcpus", "disk", "memory",
+                     "vcpu_hours", "disk_hours", "memory_hours")
         table_actions = (CSVSummary,)
         multi_select = False
 
