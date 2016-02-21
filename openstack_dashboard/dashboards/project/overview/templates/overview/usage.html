@@ -1,129 +1,139 @@
 {% extends 'custom_base.html' %}
 {% load i18n %}
 {% block title %}{% trans "Instance Overview" %}{% endblock %}
-
-{% block page_header %}
-  {% include "horizon/common/_page_header.html" with title=_("Overview") %}
-{% endblock page_header %}
-
+{% block page_header %}{% endblock page_header %}
 {% block main %}
-  {% include "horizon/common/_limit_summary.html" %}
-
-  {% if simple_tenant_usage_enabled %}
-    {% include "horizon/common/_usage_summary.html" %}
-    {{ table.render }}
-    {% if meteringFeatureEnabled %}
-    <h3 class="quota-heading">
-          {{_("Costs")}}
-    </h3>
-
-    <table id="tStaff" class="table table-bordered table-striped datatable">
-      <thead>
-        <tr class="tablesorter-headerRow">
-          <th class="sortable normal_column" width="20%" style="text-align:center;">{{_("VCPU Costs")}}</th>
-          <th class="sortable normal_column" width="16%" style="text-align:center;">{{_("Memory Costs")}}</th>
-          <th class="sortable normal_column" width="16%" style="text-align:center;">{{_("Disk Costs")}}</th>
-          <th class="sortable normal_column" width="16%" style="text-align:center;">{{_("Total Costs")}}</th>
-        </tr>
-      </thead>
-      <tbody> 
-        <tr>
-          <td align="center">
-            {% ifequal currency 1 %}
-              ￥
-            {% endifequal %}
-            {% ifequal currency 2 %}
-              $
-            {% endifequal %}
-            {% ifequal currency 3 %}
-              €
-            {% endifequal %}
-            {% ifequal currency 4 %}
-              £
-            {% endifequal %}
-            {{vcpuMoney|floatformat:2|default:'0'}}
-          </td>
-          <td align="center">
-            {% ifequal currency 1 %}
-              ￥
-            {% endifequal %}
-            {% ifequal currency 2 %}
-              $
-            {% endifequal %}
-            {% ifequal currency 3 %}
-              €
-            {% endifequal %}
-            {% ifequal currency 4 %}
-              £
-            {% endifequal %}
-            {{memoryMoney|floatformat:2|default:'0'}}
-          </td>
-          <td align="center">
-            {% ifequal currency 1 %}
-              ￥
-            {% endifequal %}
-            {% ifequal currency 2 %}
-              $
-            {% endifequal %}
-            {% ifequal currency 3 %}
-              €
-            {% endifequal %}
-            {% ifequal currency 4 %}
-              £
-            {% endifequal %}
-            {{diskMoney|floatformat:2|default:'0'}}
-          </td>
-          <td align="center">
-            {% ifequal currency 1 %}
-              ￥
-            {% endifequal %}
-            {% ifequal currency 2 %}
-              $
-            {% endifequal %}
-            {% ifequal currency 3 %}
-              €
-            {% endifequal %}
-            {% ifequal currency 4 %}
-              £
-            {% endifequal %}
-            {{totalMoney|floatformat:2|default:'0'}}
-          </td>
-        </tr> 
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="12">
-              <span>{% trans "Displaying costs" %}</span> 
-          </td>
-        </tr>
-      </tfoot>
-    </table>
-    {% endif %}
-  {% endif %}
-
-  <noscript>
-  {% trans "This pane needs javascript support." %}
-  </noscript>
-  
-  {% include "project/network_topology/client_side/_balloon_container.html" %}
-  {% include "project/network_topology/client_side/_balloon_device.html" %}
-  {% include "project/network_topology/client_side/_balloon_port.html" %}
-  
-  <div id="topologyCanvasContainer">
-    <div class="nodata">{% blocktrans %}There are no networks, routers, or connected instances to display.{% endblocktrans %}</div>
-    {% include "project/network_topology/_svg_element.html" %}
+{% include "horizon/common/_limit_summary.html" %}
+{% if simple_tenant_usage_enabled %}
+  {% include "horizon/common/_usage_summary.html" %}
+  <div class="col-sm-12">
+    <div class="tile">
+      <div class="t-header bg-black th-alt">
+        <div class="th-title">{% trans "Usage" %}</div>
+      </div>
+      <div class="t-body">
+        {{ table.render }}
+      </div>
+    </div>
   </div>
-  <span data-networktopology="{% url 'horizon:project:network_topology:json' %}" id="networktopology"></span>
-  <div id="topologyMessages"></div>
-  
-  <script type="text/javascript">
-    if (typeof horizon.network_topology !== 'undefined') {
+  {% if meteringFeatureEnabled %}
+    <div class="col-sm-12">
+      <div class="tile">
+        <div class="t-header bg-black th-alt">
+          <div class="th-title">{{_("Costs")}}</div>
+        </div>
+        <div class="t-body">
+          <div class="bg-black count-box">
+            <div class="row">
+              <div class="col-sm-3 col-xs-6">
+                <div class="cb-item">
+                  <h3> {% ifequal currency 1 %}
+                    ￥
+                  {% endifequal %}
+                  {% ifequal currency 2 %}
+                    $
+                  {% endifequal %}
+                  {% ifequal currency 3 %}
+                    €
+                  {% endifequal %}
+                  {% ifequal currency 4 %}
+                    £
+                  {% endifequal %}
+                  {{vcpuMoney|floatformat:2|default:'0'}}</h3>
+                  <small>{{_("VCPU Costs")}}</small>
+                </div>
+              </div>
+              <div class="col-sm-3 col-xs-6">
+                <div class="cb-item">
+                  <h3> {% ifequal currency 1 %}
+                    ￥
+                  {% endifequal %}
+                  {% ifequal currency 2 %}
+                    $
+                  {% endifequal %}
+                  {% ifequal currency 3 %}
+                    €
+                  {% endifequal %}
+                  {% ifequal currency 4 %}
+                    £
+                  {% endifequal %}
+                  {{vcpuMoney|floatformat:2|default:'0'}}</h3>
+                  <small>{{_("Memory Costs")}}</small>
+                </div>
+              </div>
+              <div class="col-sm-3 col-xs-6">
+                <div class="cb-item">
+                  <h3>
+                  {% ifequal currency 1 %}
+                    ￥
+                  {% endifequal %}
+                  {% ifequal currency 2 %}
+                    $
+                  {% endifequal %}
+                  {% ifequal currency 3 %}
+                    €
+                  {% endifequal %}
+                  {% ifequal currency 4 %}
+                    £
+                  {% endifequal %}
+                  {{memoryMoney|floatformat:2|default:'0'}}</h3>
+                  <small>{{_("Memory Costs")}}</small>
+                </div>
+              </div>
+              <div class="col-sm-3 col-xs-6">
+                <div class="cb-item">
+                  <h3>
+                  {% ifequal currency 1 %}
+                    ￥
+                  {% endifequal %}
+                  {% ifequal currency 2 %}
+                    $
+                  {% endifequal %}
+                  {% ifequal currency 3 %}
+                    €
+                  {% endifequal %}
+                  {% ifequal currency 4 %}
+                    £
+                  {% endifequal %}
+                  {{memoryMoney|floatformat:2|default:'0'}}</h3>
+                  <small>{{_("Total Costs")}}</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endif %}
+<div class="col-sm-12">
+  <div class="tile">
+    <div class="t-header bg-black th-alt">
+      <div class="th-title">{% trans "Newwork Topology" %}</div>
+    </div>
+    <div class="t-body">
+      <noscript>
+      {% trans "This pane needs javascript support." %}
+      </noscript>
+      {% include "project/network_topology/client_side/_balloon_container.html" %}
+      {% include "project/network_topology/client_side/_balloon_device.html" %}
+      {% include "project/network_topology/client_side/_balloon_port.html" %}
+      <div id="topologyCanvasContainer">
+        <div class="nodata">{% blocktrans %}There are no networks, routers, or connected instances to display.{% endblocktrans %}</div>
+        {% include "project/network_topology/_svg_element.html" %}
+      </div>
+      <span data-networktopology="{% url 'horizon:project:network_topology:json' %}" id="networktopology"></span>
+      <div id="topologyMessages"></div>
+      <script type="text/javascript">
+      if (typeof horizon.network_topology !== 'undefined') {
       horizon.network_topology.init();
-    } else {
+      } else {
       addHorizonLoadEvent(function () {
-        horizon.network_topology.init();
+      horizon.network_topology.init();
       });
-    }
-  </script>
-
+      }
+      </script>
+    </div>
+  </div>
+</div>
 {% endblock %}
