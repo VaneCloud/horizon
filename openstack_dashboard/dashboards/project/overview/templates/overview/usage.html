@@ -1,38 +1,53 @@
 {% extends 'custom_base.html' %}
 {% load i18n %}
 {% block title %}{% trans "Instance Overview" %}{% endblock %}
-
+{% block page_header %}{% endblock %}
 {% block main %}
   {% include "horizon/common/_limit_summary.html" %}
-
   {% if simple_tenant_usage_enabled %}
     {% include "horizon/common/_usage_summary.html" %}
-    {{ table.render }}
+    <div class="col-sm-12">
+      <div class="tile">
+        <div class="t-header bg-black th-alt">
+          <div class="th-title">{% trans "Usage" %}</div>
+        </div>
+        <div class="t-body">
+          {{ table.render }}
+        </div>
+      </div>
+    </div>
   {% endif %}
-
-  <noscript>
-  {% trans "This pane needs javascript support." %}
-  </noscript>
-  
-  {% include "project/network_topology/client_side/_balloon_container.html" %}
-  {% include "project/network_topology/client_side/_balloon_device.html" %}
-  {% include "project/network_topology/client_side/_balloon_port.html" %}
-  
-  <div id="topologyCanvasContainer">
-    <div class="nodata">{% blocktrans %}There are no networks, routers, or connected instances to display.{% endblocktrans %}</div>
-    {% include "project/network_topology/_svg_element.html" %}
-  </div>
-  <span data-networktopology="{% url 'horizon:project:network_topology:json' %}" id="networktopology"></span>
-  <div id="topologyMessages"></div>
-  
-  <script type="text/javascript">
-    if (typeof horizon.network_topology !== 'undefined') {
-      horizon.network_topology.init();
-    } else {
-      addHorizonLoadEvent(function () {
+  <div class="col-sm-12">
+    <div class="tile">
+      <div class="t-header bg-black th-alt">
+        <div class="th-title">{% trans "Newwork Topology" %}</div>
+      </div>
+      <div class="t-body">
+        <noscript>
+        {% trans "This pane needs javascript support." %}
+        </noscript>
+        
+        {% include "project/network_topology/client_side/_balloon_container.html" %}
+        {% include "project/network_topology/client_side/_balloon_device.html" %}
+        {% include "project/network_topology/client_side/_balloon_port.html" %}
+        
+        <div id="topologyCanvasContainer">
+          <div class="nodata">{% blocktrans %}There are no networks, routers, or connected instances to display.{% endblocktrans %}</div>
+          {% include "project/network_topology/_svg_element.html" %}
+        </div>
+        <span data-networktopology="{% url 'horizon:project:network_topology:json' %}" id="networktopology"></span>
+        <div id="topologyMessages"></div>
+        
+        <script type="text/javascript">
+        if (typeof horizon.network_topology !== 'undefined') {
         horizon.network_topology.init();
-      });
-    }
-  </script>
-
+        } else {
+        addHorizonLoadEvent(function () {
+        horizon.network_topology.init();
+        });
+        }
+        </script>
+      </div>
+    </div>
+  </div>
 {% endblock %}

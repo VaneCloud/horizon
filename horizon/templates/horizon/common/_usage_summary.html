@@ -1,26 +1,64 @@
 {% load i18n sizeformat %}
-<div class="quota-dynamic">
-  <h3 class="quota-heading">{% trans "Usage Summary" %}</h3>
-</div>
-<div class="usage_info_wrapper">
-  <form action="?" method="get" id="date_form" class="form-inline">
-    <h3>{% trans "Select a period of time to query its usage:" %}</h3>
-    <div class="datepicker form-group">
-      {% blocktrans with start=form.start %}
-      <label>From:</label> {{ start }}{% endblocktrans %}
+<div class="col-sm-12">
+  <div class="tile">
+    <div class="t-header th-alt bg-black">
+      <div class="th-title">{% trans "Usage Summary" %}</div>
+      <div class="actions dropdown">
+        <a href="" data-toggle="dropdown"><i class="zmdi zmdi-more"></i></a>
+        <ul class="dropdown-menu pull-right">
+          <li><a href="">Refresh</a></li>
+          <li><a href="">Settings</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="datepicker form-group">
-      {% blocktrans with end=form.end %}
-      <label>To:</label>{{ end }}{% endblocktrans %}
-    </div>
-    <button class="btn btn-primary" type="submit">{% trans "Submit" %}</button>
-    <small>{% trans "The date should be in YYYY-mm-dd format." %}</small>
-  </form>
-  <p id="activity">
-    <span><strong>{% trans "Active Instances:" %}</strong> {{ usage.summary.instances|default:'0' }}</span>
-    <span><strong>{% trans "Active RAM:" %}</strong> {{ usage.summary.memory_mb|mb_float_format|default:'0' }}</span>
-    <span><strong>{% trans "This Period's VCPU-Hours:" %}</strong> {{ usage.summary.vcpus|floatformat:2|default:'0' }}</span>
-    <span><strong>{% trans "This Period's GB-Hours:" %}</strong> {{ usage.summary.disk_gb_hours|floatformat:2|default:'0' }}</span>
-    <span><strong>{% trans "This Period's RAM-Hours:" %}</strong> {{ usage.summary.memory_mb_hours|floatformat:2|default:'0' }}</span>
-  </p>
+    <div class="tile-body ">
+      <form action="?" method="get" id="date_form" class="form-inline">
+        <h3>{% trans "Select a period of time to query its usage:" %}</h3>
+        <div class="datepicker form-group">
+          {% blocktrans with start=form.start %}
+          <label>From:</label> {{ start }}{% endblocktrans %}
+        </div>
+        <div class="datepicker form-group">
+          {% blocktrans with end=form.end %}
+          <label>To:</label>{{ end }}{% endblocktrans %}
+        </div>
+        <button class="btn btn-primary" type="submit">{% trans "Submit" %}</button>
+        <small>{% trans "The date should be in YYYY-mm-dd format." %}</small>
+      </form>
+          <div class="bg-black count-box">
+            <div class="row">
+              <div class="col-sm-3 col-xs-6">
+                <div class="cb-item">
+                  <h3> {{ usage.summary.instances|default:'0' }}</h3>
+                  <small>{% trans "Active Instances:" %}</small>
+                </div>
+              </div>
+              <div class="col-sm-3 col-xs-6">
+                <div class="cb-item">
+                  <h3> {{ usage.summary.memory_mb|mb_float_format|default:'0' }}</h3>
+                  <small>{% trans "Active RAM:" %}</small>
+                </div>
+              </div>
+              <div class="col-sm-3 col-xs-6">
+                <div class="cb-item">
+                  <h3>{{ usage.summary.vcpus|floatformat:2|default:'0' }}</h3>
+                  <small>{% trans "This Period's VCPU-Hours:" %}</small>
+                </div>
+              </div>
+              <div class="col-sm-3 col-xs-6">
+                <div class="cb-item">
+                  <h3>{{ usage.summary.disk_gb_hours|floatformat:2|default:'0' }}</h3>
+                  <small>{% trans "This Period's GB-Hours:" %}</small>
+                </div>
+              </div>
+              <div class="col-sm-3 col-xs-6">
+                <div class="cb-item">
+                  <h3>{{ usage.summary.memory_mb_hours|floatformat:2|default:'0' }}</h3>
+                  <small>{% trans "This Period's RAM-Hours:" %}</small>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+  </div>
 </div>
