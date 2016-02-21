@@ -1,0 +1,79 @@
+    <!-- Javascript Libraries -->
+    <script src="/static/dashboard/vendors/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/static/dashboard/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/static/dashboard/vendors/bootstrap-growl/bootstrap-growl.min.js"></script>
+    <script src="/static/dashboard/vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="/static/dashboard/vendors/bower_components/flot/jquery.flot.js"></script>
+    <script src="/static/dashboard/vendors/bower_components/flot/jquery.flot.resize.js"></script>
+    <script src="/static/dashboard/vendors/bower_components/flot/jquery.flot.pie.js"></script>
+    <script src="/static/dashboard/vendors/bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+    <script src="/static/dashboard/vendors/bower_components/flot-orderBars/js/jquery.flot.orderBars.js"></script>
+    <script src="/static/dashboard/vendors/bower_components/flot.curvedlines/curvedLines.js"></script>
+    <script src="/static/dashboard/vendors/bower_components/flot-orderBars/js/jquery.flot.orderBars.js"></script>
+    <script src="/static/dashboard/vendors/sparklines/jquery.sparkline.min.js"></script>
+    <script src="/static/dashboard/vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
+    <!-- Placeholder for IE9 -->
+    <!--[if IE 9 ]>
+            <script src="vendors/bower_components/jquery-placeholder/jquery.placeholder.min.js"></script>
+            <![endif]-->
+    <!-- Charts - Please read the read-me.txt inside the js folder-->
+    <script src="/static/dashboard/js/flot-charts/curved-line-chart.js"></script>
+    <script src="/static/dashboard/js/flot-charts/line-chart.js"></script>
+    <script src="/static/dashboard/js/flot-charts/bar-chart.js"></script>
+    <!-- // <script src="js/flot-charts/dynamic-chart.js"></script> -->
+    <script src="/static/dashboard/js/flot-charts/pie-chart.js"></script>
+    <script src="/static/dashboard/js/functions.js"></script>
+    <script src="/static/dashboard/js/demo.js"></script>
+    <script src="/static/dashboard/js/charts.js"></script>
+    <!-- Data Table -->
+    <script type="text/javascript">
+    $(document).ready(function() {
+        //Basic Example
+        $("#data-table").bootgrid({
+            css: {
+                icon: 'zmdi icon',
+                iconColumns: 'zmdi-view-module',
+                iconDown: 'zmdi-expand-more',
+                iconRefresh: 'zmdi-refresh',
+                iconUp: 'zmdi-expand-less',
+                iconSearch: 'zmdi-search'
+            },
+        });
+
+        //Selection
+        $("#data-table-selection").bootgrid({
+            css: {
+                icon: 'zmdi icon',
+                iconColumns: 'zmdi-view-module',
+                iconDown: 'zmdi-expand-more',
+                iconRefresh: 'zmdi-refresh',
+                iconUp: 'zmdi-expand-less',
+                iconSearch: 'zmdi-search'
+
+            },
+            selection: true,
+            multiSelect: true,
+            rowSelect: true,
+            keepSelection: true
+        });
+
+        //Command Buttons
+        $("#data-table-command").bootgrid({
+            css: {
+                icon: 'zmdi icon',
+                iconColumns: 'zmdi-view-module',
+                iconDown: 'zmdi-expand-more',
+                iconRefresh: 'zmdi-refresh',
+                iconUp: 'zmdi-expand-less'
+            },
+            formatters: {
+                "commands": function(column, row) {
+                    return "<button type=\"button\" class=\"btn btn-icon btn-info command-edit\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-edit\"></span></button> " +
+                        "<button type=\"button\" class=\"btn btn-icon btn-info command-delete\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-delete\"></span></button>";
+                }
+            }
+        });
+    });
+    </script>
+    <script src="/static/dashboard/vendors/bootstrap-growl/bootstrap-growl.min.js"></script>
+    <script src="/static/dashboard/vendors/bower_components/jquery.bootgrid/dist/jquery.bootgrid-override.min.js"></script>

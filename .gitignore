@@ -23,9 +23,11 @@ doc/build/
 doc/source/sourcecode
 /static/
 .venv
+env/
 .tox
 build
 dist
 AUTHORS
 ChangeLog
 tags
+.ropeproject
