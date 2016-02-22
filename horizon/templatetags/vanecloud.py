@@ -34,7 +34,6 @@ def next_setp_id(steps, index):
 @register.filter
 def pre_setp_id(steps, index):
     try:
-        print index
         return steps[index-2].get_id()
     except:
         return None
