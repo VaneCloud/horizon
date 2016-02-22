@@ -1,8 +1,4 @@
-# Copyright 2012 United States Government as represented by the
-# Administrator of the National Aeronautics and Space Administration.
-# All Rights Reserved.
-#
-# Copyright 2013 NTT MCL, Inc.
+# Copyright 2015 Cisco Systems.
 #
 #    Licensed under the Apache License, Version 2.0 (the "License"); you may
 #    not use this file except in compliance with the License. You may obtain
@@ -18,14 +14,16 @@
 
 from django.utils.translation import ugettext_lazy as _
 
-import horizon
-
-from openstack_dashboard.dashboards.project import dashboard
+from openstack_dashboard.dashboards.project.networks import tables
 
 
-class NetworkTopology(horizon.Panel):
-    name = _("Network Topology")
-    slug = 'network_topology'
-    permissions = ('openstack.services.network', )
+class DeleteNetwork(tables.DeleteNetwork):
+    redirect_url = "horizon:project:network_topology:network"
 
-dashboard.Project.register(NetworkTopology)
+
+class NetworksTable(tables.NetworksTable):
+    class Meta(object):
+        name = "networks"
+        verbose_name = _("Networks")
+        table_actions = (DeleteNetwork,)
+        row_actions = (DeleteNetwork,)
