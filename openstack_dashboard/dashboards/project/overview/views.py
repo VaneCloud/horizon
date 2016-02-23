@@ -32,6 +32,7 @@ from horizon import API
 
 from horizon import meteringConfig
 
+
 class ProjectUsageCsvRenderer(csvbase.BaseCsvResponse):
 
     columns = [_("Instance Name"), _("VCPUs"), _("RAM (MB)"),
@@ -77,7 +78,8 @@ class ProjectOverview(usage.UsageView):
     def get_context_data(self, **kwargs):
         context = super(ProjectOverview, self).get_context_data(**kwargs)
 
-        context['meteringFeatureEnabled'] = meteringConfig.meteringFeatureEnabled
+        context['meteringFeatureEnabled'] = \
+            meteringConfig.meteringFeatureEnabled
 
         if meteringConfig.meteringFeatureEnabled:
             vcpu_hours = self.usage.summary['vcpu_hours']
@@ -100,6 +102,7 @@ class ProjectOverview(usage.UsageView):
             context['diskMoney'] = diskMoney
             context['totalMoney'] = totalMoney
             context['currency'] = currency
+
         network_config = getattr(settings, 'OPENSTACK_NEUTRON_NETWORK', {})
 
         context['launch_instance_allowed'] = self._has_permission(
@@ -116,6 +119,8 @@ class ProjectOverview(usage.UsageView):
             settings, 'CONSOLE_TYPE', 'AUTO')
         context['show_ng_launch'] = getattr(
             settings, 'LAUNCH_INSTANCE_NG_ENABLED', False)
+        context['show_legacy_launch'] = getattr(
+            settings, 'LAUNCH_INSTANCE_LEGACY_ENABLED', True)
         return context
 
 
