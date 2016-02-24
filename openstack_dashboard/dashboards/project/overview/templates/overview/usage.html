@@ -24,8 +24,6 @@
         <div class="nodata">{% blocktrans %}There are no networks, routers, or connected instances to display.{% endblocktrans %}</div>
       </div>
       <span data-networktopology="{% url 'horizon:project:network_topology:json' %}" id="networktopology"></span>
-      <div id="topologyMessages"></div>
-      
       <script type="text/javascript">
         if (typeof horizon.network_topology !== 'undefined') {
           horizon.network_topology.init();
@@ -40,16 +38,6 @@
 </div>
 {% if simple_tenant_usage_enabled %}
   {% include "horizon/common/_usage_summary.html" %}
-  <div class="col-sm-6">
-    <div class="tile">
-      <div class="t-header bg-black th-alt">
-        <div class="th-title">{% trans "Usage" %}</div>
-      </div>
-      <div class="t-body">
-        {{ table.render }}
-      </div>
-    </div>
-  </div>
   {% if meteringFeatureEnabled %}
     <div class="col-sm-6">
       <div class="tile">
@@ -140,4 +128,14 @@
     </div>
   {% endif %}
 {% endif %}
+<div class="col-sm-12">
+  <div class="tile">
+    <div class="t-header bg-black th-alt">
+      <div class="th-title">{% trans "Usage" %}</div>
+    </div>
+    <div class="t-body">
+      {{ table.render }}
+    </div>
+  </div>
+</div>
 {% endblock %}

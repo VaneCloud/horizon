@@ -224,7 +224,7 @@ horizon.network_topology = {
     // Main svg
     self.outer_group = d3.select('#topologyCanvasContainer').append('svg')
       .attr('width', '100%')
-      .attr('height', angular.element(document).height() - 200 + "px")
+      .attr('height', (angular.element(document).height() - 200)*0.3 + "px")
       .attr('pointer-events', 'all')
       .append('g')
       .call(self.zoom

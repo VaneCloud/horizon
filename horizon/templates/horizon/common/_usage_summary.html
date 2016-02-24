@@ -13,7 +13,6 @@
     </div>
     <div class="tile-body ">
       <form action="?" method="get" id="date_form" class="form-inline">
-        <h3>{% trans "Select a period of time to query its usage:" %}</h3>
         <div class="datepicker form-group">
           {% blocktrans with start=form.start %}
           <label>From:</label> {{ start }}{% endblocktrans %}
@@ -23,38 +22,37 @@
           <label>To:</label>{{ end }}{% endblocktrans %}
         </div>
         <button class="btn btn-primary" type="submit">{% trans "Submit" %}</button>
-        <small>{% trans "The date should be in YYYY-mm-dd format." %}</small>
       </form>
       <div class="bg-black count-box">
             <div class="row">
               <div class="col-sm-4 col-xs-6">
                 <div class="cb-item">
                   <h3> {{ usage.summary.instances|default:'0' }}</h3>
-                  <small>{% trans "Active Instances:" %}</small>
+                  <small>{% trans "Active Instances" %}</small>
                 </div>
               </div>
               <div class="col-sm-4 col-xs-6">
                 <div class="cb-item">
                   <h3> {{ usage.summary.memory_mb|mb_float_format|default:'0' }}</h3>
-                  <small>{% trans "Active RAM:" %}</small>
+                  <small>{% trans "Active RAM" %}</small>
                 </div>
               </div>
               <div class="col-sm-4 col-xs-6">
                 <div class="cb-item">
                   <h3>{{ usage.summary.vcpus|floatformat:2|default:'0' }}</h3>
-                  <small>{% trans "This Period's VCPU-Hours:" %}</small>
+                  <small>{% trans "VCPU-Hours" %}</small>
                 </div>
               </div>
               <div class="col-sm-6 col-xs-6">
                 <div class="cb-item">
                   <h3>{{ usage.summary.disk_gb_hours|floatformat:2|default:'0' }}</h3>
-                  <small>{% trans "This Period's GB-Hours:" %}</small>
+                  <small>{% trans "GB-Hours" %}</small>
                 </div>
               </div>
               <div class="col-sm-6 col-xs-6">
                 <div class="cb-item">
                   <h3>{{ usage.summary.memory_mb_hours|floatformat:2|default:'0' }}</h3>
-                  <small>{% trans "This Period's RAM-Hours:" %}</small>
+                  <small>{% trans "RAM-Hours" %}</small>
                 </div>
               </div>
             </div>
