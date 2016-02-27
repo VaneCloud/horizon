@@ -62,7 +62,7 @@
 body {
   background-color: $body-bg;
   &:not(#splash) {
-    background-image: url('../img/sidebar_bg.png');
+    //background-image: url('../img/sidebar_bg.png');
     background-repeat: repeat-y;
     background-position: -200px top;
   }
