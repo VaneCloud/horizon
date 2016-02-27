@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% block title %}{% trans "Instance Overview" %}{% endblock %}
+{% block vc_custom_js %}
+<script src="/static/dashboard/vendors/bower_components/jquery/dist/jquery.min.js"></script>
+{% endblock %}
 {% block page_header %}{% endblock page_header %}
 {% block main %}
 {% include "horizon/common/_limit_summary.html" %}
