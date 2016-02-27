@@ -47,6 +47,7 @@
     </div>
     {% block js %}
       {% include "horizon/_scripts.html" %}
+      {% block vc_custom_js %}{% endblock %}
       {% include "horizon/_custom_scripts.html" %}
     {% endblock %}
     <div id="modal_wrapper"></div>
