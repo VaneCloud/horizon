@@ -1,7 +1,17 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% block title %}{% trans "Instances" %}{% endblock %}
+{% block page_header %}{% endblock page_header %}
 
 {% block main %}
-  {{ table.render }}
+<div class="col-sm-12">
+  <div class="tile">
+    <div class="t-header bg-black th-alt">
+      <div class="th-title">{% trans "Instances" %}</div>
+    </div>
+    <div class="t-body">
+      {{ table.render }}
+    </div>
+  </div>
+</div>
 {% endblock %}
