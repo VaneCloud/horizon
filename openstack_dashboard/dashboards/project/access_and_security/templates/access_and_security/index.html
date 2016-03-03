@@ -1,11 +1,22 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% block title %}{% trans "Access &amp; Security" %}{% endblock %}
+{% block page_header %}{% endblock page_header %}
 
 {% block main %}
-<div class="row">
+<div class="col-sm-12">
+  <div class="tile">
+    <div class="t-header bg-black th-alt">
+      <div class="th-title">{% trans "Access &amp; Security" %}</div>
+    </div>
+    <div class="t-body">
+  {{ tab_group.render }}
+    </div>
+  </div>
+</div>
+<!-- <div class="row">
   <div class="col-sm-12">
   {{ tab_group.render }}
   </div>
-</div>
+</div> -->
 {% endblock %}

@@ -2,9 +2,16 @@
 {% load i18n %}
 {% load url from future %}
 {% block title %}{% trans "Network Topology" %}{% endblock %}
+{% block page_header %}{% endblock page_header %}
 
 {% block main %}
 
+<div class="col-sm-12">
+  <div class="tile">
+    <div class="t-header bg-black th-alt">
+      <div class="th-title">{% trans "Newwork Topology" %}</div>
+    </div>
+    <div class="t-body">
 <noscript>
 {% trans "This pane needs javascript support." %}
 </noscript>
@@ -61,4 +68,8 @@ Pan around the canvas by clicking and dragging the space behind the topology.
     });
   }
 </script>
+
+    </div>
+  </div>
+</div>
 {% endblock %}
