@@ -4,13 +4,15 @@
 <ul class="side-menu">
 {% for dashboard, panel_info in components %}
   {% if user|has_permissions:dashboard %}
-    {% if dashboard.slug == "admin" %}
+<!--     {% if dashboard.slug == "admin" %}
     <dt>
       {{ dashboard.name }}
       <span class="fa pull-right"></span>
     </dt>
-      <div>
-    {% endif %}
+    {% else %}
+    <dt>
+    </dt>
+    {% endif %} -->
     {% for heading, panels in panel_info.iteritems %}
       {% with panels|has_permissions_on_list:user as filtered_panels %}
       {% if filtered_panels %}
@@ -28,4 +30,4 @@
     {% endfor %}
   {% endif %}
 {% endfor %}
-</dl>
+</ul>

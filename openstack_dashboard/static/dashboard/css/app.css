@@ -8526,7 +8526,7 @@ fieldset[disabled] .btn-inverse.active {
 }
 @media (min-width: 769px) {
   #menu-trigger {
-    line-height: 62px;
+    line-height: 60px;
   }
 }
 @media (max-width: 1279px) {

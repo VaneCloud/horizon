@@ -150,3 +150,9 @@
 .color-black{
     color:#767676;
 }
+
+.brand{
+  text-align: center;
+  height: 64px;
+  width: 180px;
+}
