@@ -19,10 +19,18 @@
         {% for panel in filtered_panels %}
           {% if dashboard.slug == "project" %}
             {% if panel.slug in project_show_panel_list %}
-              <li><a href="{{ panel.get_absolute_url }}" {% if current.slug == dashboard.slug and current_panel == panel.slug %}class="active"{% endif %} tabindex="{{ forloop.counter }}" ><i class="zmdi zmdi-home"></i><span>{{ panel.name }}</span></a></li>
+              <li><a href="{{ panel.get_absolute_url }}" {% if current.slug == dashboard.slug and current_panel == panel.slug %}class="active"{% endif %} tabindex="{{ forloop.counter }}" ><i class="zmdi {{ icons|get_item:panel.slug }}"></i><span>{{ panel.name }}</span></a></li>
+            {% endif %}
+          {% elif dashboard.slug == "admin" %}
+            {% if panel.slug in admin_show_panel_list %}
+              <li><a href="{{ panel.get_absolute_url }}" {% if current.slug == dashboard.slug and current_panel == panel.slug %}class="active"{% endif %} tabindex="{{ forloop.counter }}" ><i class="zmdi {{ icons|get_item:panel.slug }}"></i><span>{{ panel.name }}</span></a></li>
+            {% endif %}
+          {% elif dashboard.slug == "identity" %}
+            {% if panel.slug in identity_show_panel_list %}
+              <li><a href="{{ panel.get_absolute_url }}" {% if current.slug == dashboard.slug and current_panel == panel.slug %}class="active"{% endif %} tabindex="{{ forloop.counter }}" ><i class="zmdi {{ icons|get_item:panel.slug }}"></i><span>{{ panel.name }}</span></a></li>
             {% endif %}
           {% else %}
-            <li><a href="{{ panel.get_absolute_url }}" {% if current.slug == dashboard.slug and current_panel == panel.slug %}class="active"{% endif %} tabindex="{{ forloop.counter }}" ><i class="zmdi zmdi-home"></i><span>{{ panel.name }}</span></a></li>
+            <li><a href="{{ panel.get_absolute_url }}" {% if current.slug == dashboard.slug and current_panel == panel.slug %}class="active"{% endif %} tabindex="{{ forloop.counter }}" ><i class="zmdi {{ icons|get_item:panel.slug }}"></i><span>{{ panel.name }}</span></a></li>
            {% endif %}
         {% endfor %}
       {% endif %}

@@ -29,6 +29,9 @@ from horizon import conf
 
 register = template.Library()
 
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
 
 @register.filter
 def has_permissions(user, component):
@@ -78,6 +81,29 @@ def horizon_nav(context):
             'project_show_panel_list': ["overview", "instances", "volumes",
                                         "images", "network_topology",
                                         "access_and_security"],
+            'admin_show_panel_list': ["overview", "metering", "hypervisors",
+                                      "aggregates", "instances", "volumes",
+                                      "flavors", "images", "networks",
+                                      "routers", "defaults", "metadata_defs",
+                                      "info"],
+            'icons': {"overview": "zmdi-home",
+                      "instances": "zmdi-cloud",
+                      "volumes": "zmdi-storage",
+                      "images": "zmdi-image",
+                      "network_topology": "zmdi-network",
+                      "access_and_security": "zmdi-shield-security",
+                      "hypervisors": "zmdi-laptop",
+                      "aggregates": "zmdi-layers",
+                      "flavors": "zmdi-format-size",
+                      "networks": "zmdi-network",
+                      "routers": "zmdi-router",
+                      "defaults": "zmdi-globe",
+                      "metadata_defs": "zmdi-text-format",
+                      "info": "zmdi-info",
+                      "projects": "zmdi-apps",
+                      "users": "zmdi-account",
+                      },
+            'identity_show_panel_list': ["projects", "users"],
             'user': context['request'].user,
             'current': current_dashboard,
             'current_panel_group': current_panel_group,
