@@ -1,18 +1,33 @@
 {% load horizon i18n %}
 {% load url from future %}
 
-<ul class="side-menu">
+  <ul id="myTab" class="nav nav-tabs aside-tab">
 {% for dashboard, panel_info in components %}
   {% if user|has_permissions:dashboard %}
-<!--     {% if dashboard.slug == "admin" %}
-    <dt>
+    {% if dashboard.slug == "project" %}
+   <li class="active">
+      <a href="#{{ dashboard.name }}" data-toggle="tab">
       {{ dashboard.name }}
-      <span class="fa pull-right"></span>
-    </dt>
+      </a>
+   </li>
+    {% elif dashboard.slug == "admin" %}
+      <li><a href="#{{ dashboard.name }}" data-toggle="tab"> {{ dashboard.name }}</a></li>
     {% else %}
-    <dt>
-    </dt>
-    {% endif %} -->
+    {% endif %}
+  {% endif %}
+{% endfor %}
+    </ul>
+      <div id="myTabContent" class="tab-content">
+{% for dashboard, panel_info in components %}
+  {% if user|has_permissions:dashboard %}
+    {% if dashboard.slug == "project" %}
+      <div class="tab-pane fade in active" id="{{ dashboard.name }}">
+      <ul class="side-menu">
+    {% elif dashboard.slug == "admin" %}
+      <div class="tab-pane fade" id="{{ dashboard.name }}">
+      <ul class="side-menu">
+    {% else %}
+    {% endif %}
     {% for heading, panels in panel_info.iteritems %}
       {% with panels|has_permissions_on_list:user as filtered_panels %}
       {% if filtered_panels %}
@@ -36,6 +51,10 @@
       {% endif %}
       {% endwith %}
     {% endfor %}
+    {% if dashboard.slug == "identity" or dashboard.slug == "project" %}
+    </ul>
+    </div>
+    {% endif %}
   {% endif %}
 {% endfor %}
-</ul>
+    </div>
