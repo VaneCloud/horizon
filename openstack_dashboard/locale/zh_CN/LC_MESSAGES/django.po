@@ -16823,3 +16823,6 @@ msgstr "组件标识"
 
 msgid "Toggle Network Collapse"
 msgstr "组件聚合"
+
+msgid "Previous"
+msgstr "上一步"
