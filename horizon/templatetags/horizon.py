@@ -29,9 +29,11 @@ from horizon import conf
 
 register = template.Library()
 
+
 @register.filter
 def get_item(dictionary, key):
     return dictionary.get(key)
+
 
 @register.filter
 def has_permissions(user, component):
@@ -45,6 +47,14 @@ def has_permissions(user, component):
 def has_permissions_on_list(components, user):
     return [component for component
             in components if has_permissions(user, component)]
+
+
+@register.filter
+def has_admin_permission(user, components):
+    for dashboard, panel_info in components:
+        if dashboard.slug == "admin" and has_permissions(user, dashboard):
+            return True
+    return False
 
 
 @register.inclusion_tag('horizon/_accordion_nav.html', takes_context=True)

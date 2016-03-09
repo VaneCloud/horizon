@@ -41,7 +41,7 @@
               <li><a href="{{ panel.get_absolute_url }}" {% if current.slug == dashboard.slug and current_panel == panel.slug %}class="active"{% endif %} tabindex="{{ forloop.counter }}" ><i class="zmdi {{ icons|get_item:panel.slug }}"></i><span>{{ panel.name }}</span></a></li>
             {% endif %}
           {% elif dashboard.slug == "identity" %}
-            {% if panel.slug in identity_show_panel_list %}
+            {% if panel.slug in identity_show_panel_list and user|has_admin_permission:components %}
               <li><a href="{{ panel.get_absolute_url }}" {% if current.slug == dashboard.slug and current_panel == panel.slug %}class="active"{% endif %} tabindex="{{ forloop.counter }}" ><i class="zmdi {{ icons|get_item:panel.slug }}"></i><span>{{ panel.name }}</span></a></li>
             {% endif %}
           {% else %}
