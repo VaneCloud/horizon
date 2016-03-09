@@ -192,7 +192,6 @@ horizon.network_topology = {
     var labels = horizon.cookies.get('show_labels');
     var networks = horizon.cookies.get('are_networks_collapsed');
     if (labels) {
-      angular.element('.nodeLabel').show();
       angular.element('#toggle_labels').addClass('active');
     }
     if (networks) {
@@ -770,6 +769,7 @@ horizon.network_topology = {
         self.force.start();
     }
     self.load_config();
+    angular.element('.nodeLabel').show();
   },
 
   removeNode: function(obj) {
