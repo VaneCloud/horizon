@@ -9,7 +9,7 @@
 <div class="col-sm-12">
   <div class="tile">
     <div class="t-header bg-black th-alt">
-      <div class="th-title">{% trans "Newwork Topology" %}</div>
+      <div class="th-title">{% trans "Network Topology" %}</div>
     </div>
     <div class="t-body">
 <noscript>
@@ -21,12 +21,6 @@
 {% include "project/network_topology/client_side/_balloon_port.html" %}
 {% include "project/network_topology/client_side/_balloon_net.html" %}
 {% include "project/network_topology/client_side/_balloon_instance.html" %}
-<div class='description'>
-  {% blocktrans %}
-Resize the canvas by scrolling up/down with your mouse/trackpad on the topology.
-Pan around the canvas by clicking and dragging the space behind the topology.
-  {% endblocktrans %}
-</div>
 <div class="topologyNavi">
   <div class="toggleView btn-group" data-toggle="buttons-radio">
     <button type="button" class="btn btn-default" id="toggle_labels"><span class="fa

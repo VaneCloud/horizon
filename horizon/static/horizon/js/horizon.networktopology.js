@@ -192,7 +192,6 @@ horizon.network_topology = {
     var labels = horizon.cookies.get('show_labels');
     var networks = horizon.cookies.get('are_networks_collapsed');
     if (labels) {
-      angular.element('.nodeLabel').show();
       angular.element('#toggle_labels').addClass('active');
     }
     if (networks) {
@@ -224,7 +223,7 @@ horizon.network_topology = {
     // Main svg
     self.outer_group = d3.select('#topologyCanvasContainer').append('svg')
       .attr('width', '100%')
-      .attr('height', (angular.element(document).height() - 200)*0.3 + "px")
+      .attr('height', "400px")
       .attr('pointer-events', 'all')
       .append('g')
       .call(self.zoom
@@ -770,6 +769,7 @@ horizon.network_topology = {
         self.force.start();
     }
     self.load_config();
+    angular.element('.nodeLabel').show();
   },
 
   removeNode: function(obj) {

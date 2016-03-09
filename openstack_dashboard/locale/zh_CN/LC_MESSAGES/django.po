@@ -1102,7 +1102,7 @@ msgstr "虚拟内核"
 #: dashboards/project/network_topology/instances/tables.py:23
 #: usage/quotas.py:64
 msgid "Instances"
-msgstr "实例"
+msgstr "云主机"
 
 #: dashboards/admin/defaults/tables.py:47
 #: dashboards/admin/defaults/workflows.py:46
@@ -12959,7 +12959,7 @@ msgstr "无法解除监控关联。"
 #: dashboards/project/network_topology/templates/network_topology/index.html:4
 #: dashboards/project/network_topology/views.py:101
 msgid "Network Topology"
-msgstr "网络拓扑"
+msgstr "网络"
 
 #: dashboards/project/network_topology/templates/network_topology/_create_router.html:9
 #: dashboards/project/network_topology/templates/network_topology/_create_router.html:20
@@ -16817,3 +16817,9 @@ msgstr "更新失败！"
 
 msgid "Please input correct value!"
 msgstr "更新失败，请输入正确的单价！"
+
+msgid "Toggle labels"
+msgstr "组件标识"
+
+msgid "Toggle Network Collapse"
+msgstr "组件聚合"

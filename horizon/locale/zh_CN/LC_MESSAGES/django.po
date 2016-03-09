@@ -368,20 +368,29 @@ msgid "Active Instances:"
 msgstr "运行的云主机："
 
 #: templates/horizon/common/_usage_summary.html:21
-msgid "Active RAM:"
-msgstr "活跃的内存："
+msgid "Active RAM"
+msgstr "使用的内存"
 
 #: templates/horizon/common/_usage_summary.html:22
 msgid "This Period's VCPU-Hours:"
 msgstr "这一时期的VCPU-小时数:"
 
+msgid "VCPU-Hours"
+msgstr "VCPU-小时数"
+
 #: templates/horizon/common/_usage_summary.html:23
 msgid "This Period's GB-Hours:"
 msgstr "这一时期的GB-小时数:"
 
+msgid "GB-Hours"
+msgstr "GB-小时数"
+
 #: templates/horizon/common/_usage_summary.html:24
 msgid "This Period's RAM-Hours:"
 msgstr "这一时期的内存-小时数"
+
+msgid "RAM-Hours"
+msgstr "内存-小时数"
 
 #: templates/horizon/common/_workflow.html:40
 msgid "Back"
