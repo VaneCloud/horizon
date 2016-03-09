@@ -4311,6 +4311,36 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-bottom-color: transparent;
   cursor: default;
 }
+
+.aside-tab > li > a,
+.aside-tab > li > a:hover,
+.aside-tab > li > a:focus {  
+  width: 64px;
+  height: 36px;
+  color: #9ba1b1;
+  background-color: #transparent;
+  border: 1px solid #transparent;
+  border-bottom-color: transparent;
+  cursor: default;
+  padding: 0;
+  line-height: 36px;
+  text-align: center;
+}
+.aside-tab > li.active > a,
+.aside-tab > li.active > a:hover,
+.aside-tab > li.active > a:focus {
+  width: 64px;
+  height: 36px;
+  color: #000000;
+  background-color: #cccccc;
+  border: 1px solid #dddddd;
+  border-bottom-color: transparent;
+  cursor: default;
+  padding: 0;
+  line-height: 36px;
+  text-align: center;
+}
+
 .nav-tabs.nav-justified {
   width: 100%;
   border-bottom: 0;
