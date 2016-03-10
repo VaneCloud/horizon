@@ -4,10 +4,12 @@
     $(document).ready(function () {
         $('#sidebar').hover(function () {
             $(this).addClass('toggled');
-            $('#menu-trigger').addClass('toggled');
+            $("#aside-tab_project").show();
+            $("#aside-tab_admin").show();
         }, function () {
             $(this).removeClass('toggled');
-            $('#menu-trigger').removeClass('toggled');
+            $("#aside-tab_project").hide();
+            $("#aside-tab_admin").hide();
         });
     });
 </script>
