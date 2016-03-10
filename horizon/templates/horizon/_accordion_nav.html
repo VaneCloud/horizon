@@ -5,13 +5,17 @@
 {% for dashboard, panel_info in components %}
   {% if user|has_permissions:dashboard %}
     {% if dashboard.slug == "project" %}
-   <li class="active">
+   <li class="active" id="aside-tab_project">
       <a href="#{{ dashboard.name }}" data-toggle="tab">
       {{ dashboard.name }}
       </a>
    </li>
     {% elif dashboard.slug == "admin" %}
-      <li><a href="#{{ dashboard.name }}" data-toggle="tab"> {{ dashboard.name }}</a></li>
+      <li id="aside-tab_admin">
+        <a href="#{{ dashboard.name }}" data-toggle="tab">
+        {{ dashboard.name }}
+        </a>
+       </li>
     {% else %}
     {% endif %}
   {% endif %}
