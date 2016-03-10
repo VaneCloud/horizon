@@ -7288,12 +7288,12 @@ strong {
     padding-left: 15px;
   }
 }
-@media (min-width: 1280px) {
+@media (min-width: 1920px) {
   #content {
     margin-left: 240px;
   }
 }
-@media (min-width: 768px) and (max-width: 1279px) {
+@media (min-width: 768px) and (max-width: 1919px) {
   #content {
     margin-left: 64px;
   }
@@ -8516,7 +8516,7 @@ fieldset[disabled] .btn-inverse.active {
   z-index: 2;
   height: 62px;
 }
-@media (min-width: 1280px) {
+@media (min-width: 1920px) {
   .logo {
     width: 240px;
     background-color: #000;
@@ -8526,7 +8526,7 @@ fieldset[disabled] .btn-inverse.active {
     padding: 15px 22px;
   }
 }
-@media (max-width: 1279px) {
+@media (max-width: 1919px) {
   .logo {
     width: 64px;
   }
@@ -8559,7 +8559,7 @@ fieldset[disabled] .btn-inverse.active {
     line-height: 60px;
   }
 }
-@media (max-width: 1279px) {
+@media (max-width: 1919px) {
   #menu-trigger {
     display: block;
   }
@@ -8621,12 +8621,12 @@ fieldset[disabled] .btn-inverse.active {
   width: 100%;
   left: 0;
 }
-@media (min-width: 1280px) {
+@media (min-width: 1920px) {
   .top-search.toggled {
     padding-left: 240px;
   }
 }
-@media (min-width: 769px) and (max-width: 1279px) {
+@media (min-width: 769px) and (max-width: 1919px) {
   .top-search.toggled {
     padding-left: 64px;
   }
@@ -8745,13 +8745,13 @@ fieldset[disabled] .btn-inverse.active {
   z-index: 9;
   height: calc(100% - 62px);
 }
-@media (min-width: 1280px), (max-width: 768px) {
+@media (min-width: 1920px), (max-width: 768px) {
   #sidebar {
     width: 240px;
     overflow: auto;
   }
 }
-@media (min-width: 768px) and (max-width: 1279px) {
+@media (min-width: 768px) and (max-width: 1919px) {
   #sidebar:not(.toggled) {
     width: 64px;
     overflow: visible;
@@ -8899,7 +8899,7 @@ fieldset[disabled] .btn-inverse.active {
 /* --------------------------------------------------------
     Sidebar for mid size screens
 -----------------------------------------------------------*/
-@media (min-width: 768px) and (max-width: 1279px) {
+@media (min-width: 768px) and (max-width: 1919px) {
   #sidebar:not(.toggled) .side-menu > li > a > span {
     position: absolute;
     left: 64px;
@@ -10053,12 +10053,12 @@ a.thumbnail.active {
   padding-right: 33px;
   padding-bottom: 11px;
 }
-@media (min-width: 1280px) {
+@media (min-width: 1920px) {
   .breadcrumb {
     padding-left: 270px;
   }
 }
-@media (min-width: 768px) and (max-width: 1279px) {
+@media (min-width: 768px) and (max-width: 1919px) {
   .breadcrumb {
     padding-left: 94px;
   }
@@ -10978,12 +10978,12 @@ a.thumbnail.active {
 #footer .f-menu > li > a:hover {
   color: #777;
 }
-@media (min-width: 1280px) {
+@media (min-width: 1920px) {
   #footer {
     padding-left: 270px;
   }
 }
-@media (min-width: 768px) and (max-width: 1279px) {
+@media (min-width: 768px) and (max-width: 1919px) {
   #footer {
     padding-left: 94px;
   }
