@@ -1,6 +1,16 @@
 {% load branding horizon i18n %}
 {% load url from future %}
-
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#sidebar').hover(function () {
+            $(this).addClass('toggled');
+            $('#menu-trigger').addClass('toggled');
+        }, function () {
+            $(this).removeClass('toggled');
+            $('#menu-trigger').removeClass('toggled');
+        });
+    });
+</script>
 <aside id="sidebar">
   {% horizon_nav %}
 </aside>
