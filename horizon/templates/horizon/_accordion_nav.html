@@ -5,13 +5,13 @@
 {% for dashboard, panel_info in components %}
   {% if user|has_permissions:dashboard %}
     {% if dashboard.slug == "project" %}
-   <li class="active" id="aside-tab_project">
+   <li class="{% if current.slug == dashboard.slug %}active{% endif %}" id="aside-tab_project">
       <a href="#{{ dashboard.name }}" data-toggle="tab">
       {{ dashboard.name }}
       </a>
    </li>
     {% elif dashboard.slug == "admin" %}
-      <li id="aside-tab_admin">
+      <li class="{% if current.slug == dashboard.slug %}active{% endif %}"id="aside-tab_admin">
         <a href="#{{ dashboard.name }}" data-toggle="tab">
         {{ dashboard.name }}
         </a>
@@ -25,10 +25,10 @@
 {% for dashboard, panel_info in components %}
   {% if user|has_permissions:dashboard %}
     {% if dashboard.slug == "project" %}
-      <div class="tab-pane fade in active" id="{{ dashboard.name }}">
+      <div class="tab-pane fade {% if current.slug == dashboard.slug %}in active{% endif %}" id="{{ dashboard.name }}">
       <ul class="side-menu">
     {% elif dashboard.slug == "admin" %}
-      <div class="tab-pane fade" id="{{ dashboard.name }}">
+      <div class="tab-pane fade {% if current.slug == dashboard.slug %}in active{% endif %}" id="{{ dashboard.name }}">
       <ul class="side-menu">
     {% else %}
     {% endif %}
@@ -38,18 +38,18 @@
         {% for panel in filtered_panels %}
           {% if dashboard.slug == "project" %}
             {% if panel.slug in project_show_panel_list %}
-              <li><a href="{{ panel.get_absolute_url }}" {% if current.slug == dashboard.slug and current_panel == panel.slug %}class="active"{% endif %} tabindex="{{ forloop.counter }}" ><i class="zmdi {{ icons|get_item:panel.slug }}"></i><span>{{ panel.name }}</span></a></li>
+              <li><a href="{{ panel.get_absolute_url }}" {% if current.slug == dashboard.slug and current_panel == panel.slug %}class="active"{% endif %} tabindex="{{ forloop.counter }}" ><i class="zmdi {{ icons|get_item:panel.slug }}" {% if current.slug == dashboard.slug     and current_panel == panel.slug %} style="color: #00FFFF" {% endif %}"></i><span>{{ panel.name }}</span></a></li>
             {% endif %}
           {% elif dashboard.slug == "admin" %}
             {% if panel.slug in admin_show_panel_list %}
-              <li><a href="{{ panel.get_absolute_url }}" {% if current.slug == dashboard.slug and current_panel == panel.slug %}class="active"{% endif %} tabindex="{{ forloop.counter }}" ><i class="zmdi {{ icons|get_item:panel.slug }}"></i><span>{{ panel.name }}</span></a></li>
+              <li><a href="{{ panel.get_absolute_url }}" {% if current.slug == dashboard.slug and current_panel == panel.slug %}class="active"{% endif %} tabindex="{{ forloop.counter }}" ><i class="zmdi {{ icons|get_item:panel.slug }}" {% if current.slug == dashboard.slug     and current_panel == panel.slug %} style="color: #00FFFF" {% endif %}"></i><span>{{ panel.name }}</span></a></li>
             {% endif %}
           {% elif dashboard.slug == "identity" %}
             {% if panel.slug in identity_show_panel_list and user|has_admin_permission:components %}
-              <li><a href="{{ panel.get_absolute_url }}" {% if current.slug == dashboard.slug and current_panel == panel.slug %}class="active"{% endif %} tabindex="{{ forloop.counter }}" ><i class="zmdi {{ icons|get_item:panel.slug }}"></i><span>{{ panel.name }}</span></a></li>
+              <li><a href="{{ panel.get_absolute_url }}" {% if current.slug == dashboard.slug and current_panel == panel.slug %}class="active"{% endif %} tabindex="{{ forloop.counter }}" ><i class="zmdi {{ icons|get_item:panel.slug }}" {% if current.slug == dashboard.slug     and current_panel == panel.slug %} style="color: #00FFFF" {% endif %}"></i><span>{{ panel.name }}</span></a></li>
             {% endif %}
           {% else %}
-            <li><a href="{{ panel.get_absolute_url }}" {% if current.slug == dashboard.slug and current_panel == panel.slug %}class="active"{% endif %} tabindex="{{ forloop.counter }}" ><i class="zmdi {{ icons|get_item:panel.slug }}"></i><span>{{ panel.name }}</span></a></li>
+              <li><a href="{{ panel.get_absolute_url }}" {% if current.slug == dashboard.slug and current_panel == panel.slug %}class="active"{% endif %} tabindex="{{ forloop.counter }}" ><i class="zmdi {{ icons|get_item:panel.slug }}" {% if current.slug == dashboard.slug     and current_panel == panel.slug %} style="color: #00FFFF" {% endif %}"></i><span>{{ panel.name }}</span></a></li>
            {% endif %}
         {% endfor %}
       {% endif %}
