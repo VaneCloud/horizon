@@ -2,6 +2,8 @@
 {% load url from future %}
 <script type="text/javascript">
     $(document).ready(function () {
+        $("#aside-tab_project").hide();
+        $("#aside-tab_admin").hide();
         $('#sidebar').hover(function () {
             $(this).addClass('toggled');
             $("#aside-tab_project").show();
