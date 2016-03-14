@@ -100,6 +100,7 @@ def horizon_nav(context):
                       "instances": "zmdi-cloud",
                       "volumes": "zmdi-storage",
                       "images": "zmdi-image",
+                      "metering": "zmdi-battery",
                       "network_topology": "zmdi-network",
                       "access_and_security": "zmdi-shield-security",
                       "hypervisors": "zmdi-laptop",

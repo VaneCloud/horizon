@@ -52,76 +52,26 @@
             <div class="row">
               <div class="col-sm-3 col-xs-6">
                 <div class="cb-item">
-                  <h3> {% ifequal currency 1 %}
-                    ￥
-                  {% endifequal %}
-                  {% ifequal currency 2 %}
-                    $
-                  {% endifequal %}
-                  {% ifequal currency 3 %}
-                    €
-                  {% endifequal %}
-                  {% ifequal currency 4 %}
-                    £
-                  {% endifequal %}
-                  {{vcpuMoney|floatformat:2|default:'0'}}</h3>
-                  <small>{{_("VCPU Costs")}}</small>
+                  <h3>{{vcpuMoney|floatformat:0|default:'0'}}</h3>
+                  <small>{{_("VCPU Costs")}}{% ifequal currency 1 %}￥{% endifequal %}{% ifequal currency 2 %}${% endifequal %}{% ifequal currency 3 %}€{% endifequal %}{% ifequal currency 4 %}£{% endifequal %}</small>
                 </div>
               </div>
               <div class="col-sm-3 col-xs-6">
                 <div class="cb-item">
-                  <h3> {% ifequal currency 1 %}
-                    ￥
-                  {% endifequal %}
-                  {% ifequal currency 2 %}
-                    $
-                  {% endifequal %}
-                  {% ifequal currency 3 %}
-                    €
-                  {% endifequal %}
-                  {% ifequal currency 4 %}
-                    £
-                  {% endifequal %}
-                  {{vcpuMoney|floatformat:2|default:'0'}}</h3>
-                  <small>{{_("Memory Costs")}}</small>
+                  <h3>{{memoryMoney|floatformat:0|default:'0'}}</h3>
+                  <small>{{_("Memory Costs")}}{% ifequal currency 1 %}￥{% endifequal %}{% ifequal currency 2 %}${% endifequal %}{% ifequal currency 3 %}€{% endifequal %}{% ifequal currency 4 %}£{% endifequal %}</small>
                 </div>
               </div>
               <div class="col-sm-3 col-xs-6">
                 <div class="cb-item">
-                  <h3>
-                  {% ifequal currency 1 %}
-                    ￥
-                  {% endifequal %}
-                  {% ifequal currency 2 %}
-                    $
-                  {% endifequal %}
-                  {% ifequal currency 3 %}
-                    €
-                  {% endifequal %}
-                  {% ifequal currency 4 %}
-                    £
-                  {% endifequal %}
-                  {{memoryMoney|floatformat:2|default:'0'}}</h3>
-                  <small>{{_("Memory Costs")}}</small>
+                  <h3>{{diskMoney|floatformat:0|default:'0'}}</h3>
+                  <small>{{_("Disk Costs")}}{% ifequal currency 1 %}￥{% endifequal %}{% ifequal currency 2 %}${% endifequal %}{% ifequal currency 3 %}€{% endifequal %}{% ifequal currency 4 %}£{% endifequal %}</small>
                 </div>
               </div>
               <div class="col-sm-3 col-xs-6">
                 <div class="cb-item">
-                  <h3>
-                  {% ifequal currency 1 %}
-                    ￥
-                  {% endifequal %}
-                  {% ifequal currency 2 %}
-                    $
-                  {% endifequal %}
-                  {% ifequal currency 3 %}
-                    €
-                  {% endifequal %}
-                  {% ifequal currency 4 %}
-                    £
-                  {% endifequal %}
-                  {{memoryMoney|floatformat:2|default:'0'}}</h3>
-                  <small>{{_("Total Costs")}}</small>
+                  <h3>{{totalMoney|floatformat:0|default:'0'}}</h3>
+                  <small>{{_("Total Costs")}}{% ifequal currency 1 %}￥{% endifequal %}{% ifequal currency 2 %}${% endifequal %}{% ifequal currency 3 %}€{% endifequal %}{% ifequal currency 4 %}£{% endifequal %}</small>
                 </div>
               </div>
             </div>
