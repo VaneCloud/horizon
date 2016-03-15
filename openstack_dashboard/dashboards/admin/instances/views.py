@@ -35,6 +35,7 @@ from openstack_dashboard.dashboards.admin.instances \
 from openstack_dashboard.dashboards.project.instances import views
 from openstack_dashboard.dashboards.project.instances.workflows \
     import update_instance
+from django.conf import settings
 
 
 # re-use console from project.instances.views to make reflection work
@@ -147,6 +148,11 @@ class AdminIndexView(tables.DataTableView):
             if filter_field and filter_string:
                 filters[filter_field] = filter_string
         return filters
+
+    def get_context_data(self, **kwargs):
+        context = super(AdminIndexView, self).get_context_data(**kwargs)
+        context["grafana_url"] = settings.GRAFANA_URL
+        return context
 
 
 class LiveMigrateView(forms.ModalFormView):
