@@ -1800,7 +1800,7 @@ msgstr "无法获取计算节点信息。"
 #: dashboards/admin/hypervisors/tables.py:65
 #: dashboards/admin/hypervisors/templates/hypervisors/index.html:4
 msgid "Hypervisors"
-msgstr "虚拟机管理器"
+msgstr "计算主机管理器"
 
 #: dashboards/admin/hypervisors/tables.py:25
 #: dashboards/admin/info/tables.py:206
@@ -1832,7 +1832,7 @@ msgstr "虚拟内核(已使用)"
 
 #: dashboards/admin/hypervisors/tables.py:34
 msgid "VCPUs (total)"
-msgstr "虚拟内核(总计)"
+msgstr "物理内核(总计)"
 
 #: dashboards/admin/hypervisors/tables.py:37
 msgid "RAM (used)"
@@ -1902,7 +1902,7 @@ msgstr "虚拟机管理程序服务器"
 
 #: dashboards/admin/hypervisors/templates/hypervisors/index.html:8
 msgid "Hypervisor Summary"
-msgstr "虚拟机管理器概述"
+msgstr "计算主机管理器概述"
 
 #: dashboards/admin/hypervisors/templates/hypervisors/index.html:11
 msgid "VCPU Usage"
@@ -1925,7 +1925,7 @@ msgstr "本地磁盘使用"
 
 #: dashboards/admin/hypervisors/views.py:32
 msgid "All Hypervisors"
-msgstr "所有虚拟机管理器"
+msgstr "所有计算主机管理器"
 
 #: dashboards/admin/hypervisors/views.py:51
 msgid "Unable to retrieve hypervisor statistics."
