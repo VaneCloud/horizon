@@ -45,7 +45,7 @@ class DashboardTab(tabs.Tab):
     def get_context_data(self, request):
         instance = self.tab_group.kwargs['instance']
         return {"instance": instance,
-                "grafana_url": settings.GRAFANA_URL}
+                "grafana_url": getattr(settings, 'GRAFANA_URL', None)}
 
 
 class LogTab(tabs.Tab):

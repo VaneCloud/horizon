@@ -151,7 +151,7 @@ class AdminIndexView(tables.DataTableView):
 
     def get_context_data(self, **kwargs):
         context = super(AdminIndexView, self).get_context_data(**kwargs)
-        context["grafana_url"] = settings.GRAFANA_URL
+        context["grafana_url"] = getattr(settings, 'GRAFANA_URL', None)
         return context
 
 
