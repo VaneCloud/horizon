@@ -16830,5 +16830,5 @@ msgstr "上一步"
 msgid "Dashboard"
 msgstr "仪表盘"
 
-msgid "Instance Resource Usage"
-msgstr "云主机资源使用"
+msgid "Instance Dashboard"
+msgstr "云主机仪表盘"
