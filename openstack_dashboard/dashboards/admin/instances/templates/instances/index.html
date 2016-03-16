@@ -4,7 +4,7 @@
 
 {% block main %}
   {{ table.render }}
-  <h1> {% trans "Instance Resource Usage" %}</h1>
+  <h1> {% trans "Instance Dashboard" %}</h1>
   {% if grafana_url %}
     <div>
       <iframe src="{{ grafana_url }}?var-instance_name=All" width='100%' height="550" scrolling="yes" />
