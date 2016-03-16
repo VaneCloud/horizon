@@ -11,7 +11,7 @@
       </a>
    </li>
     {% elif dashboard.slug == "admin" %}
-      <li class="{% if current.slug == dashboard.slug %}active{% endif %}"id="aside-tab_admin">
+      <li class="{% if current.slug == dashboard.slug or current.slug == "identity" %}active{% endif %}"id="aside-tab_admin">
         <a href="#{{ dashboard.name }}" data-toggle="tab">
         {{ dashboard.name }}
         </a>
@@ -27,8 +27,8 @@
     {% if dashboard.slug == "project" %}
       <div class="tab-pane fade {% if current.slug == dashboard.slug %}in active{% endif %}" id="{{ dashboard.name }}">
       <ul class="side-menu">
-    {% elif dashboard.slug == "admin" %}
-      <div class="tab-pane fade {% if current.slug == dashboard.slug %}in active{% endif %}" id="{{ dashboard.name }}">
+    {% elif dashboard.slug == "admin" or dashboard.slug == "identity" %}
+      <div class="tab-pane fade {% if current.slug == dashboard.slug or current.slug == "identity" %}in active{% endif %}" id="{{ dashboard.name }}">
       <ul class="side-menu">
     {% else %}
     {% endif %}
