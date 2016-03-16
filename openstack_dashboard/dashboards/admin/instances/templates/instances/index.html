@@ -3,5 +3,11 @@
 {% block title %}{% trans "Instances" %}{% endblock %}
 
 {% block main %}
-    {{ table.render }}
+  {{ table.render }}
+  <h1> {% trans "Instance Resource Usage" %}</h1>
+  {% if grafana_url %}
+    <div>
+      <iframe src="{{ grafana_url }}?var-instance_name=All" width='100%' height="550" scrolling="yes" />
+    </div>
+  {% endif %}
 {% endblock %}

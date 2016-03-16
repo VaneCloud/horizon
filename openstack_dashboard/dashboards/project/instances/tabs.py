@@ -36,6 +36,18 @@ class OverviewTab(tabs.Tab):
         return {"instance": self.tab_group.kwargs['instance']}
 
 
+class DashboardTab(tabs.Tab):
+    name = _("Dashboard")
+    slug = "dashboard"
+    template_name = "project/instances/_dashboard.html"
+    preload = False
+
+    def get_context_data(self, request):
+        instance = self.tab_group.kwargs['instance']
+        return {"instance": instance,
+                "grafana_url": getattr(settings, 'GRAFANA_URL', None)}
+
+
 class LogTab(tabs.Tab):
     name = _("Log")
     slug = "log"
@@ -55,7 +67,6 @@ class LogTab(tabs.Tab):
         return {"instance": instance,
                 "console_log": data,
                 "log_length": log_length}
-
 
 class ConsoleTab(tabs.Tab):
     name = _("Console")
@@ -107,5 +118,5 @@ class AuditTab(tabs.TableTab):
 
 class InstanceDetailTabs(tabs.TabGroup):
     slug = "instance_details"
-    tabs = (OverviewTab, LogTab, ConsoleTab, AuditTab)
+    tabs = (OverviewTab, LogTab, ConsoleTab, AuditTab, DashboardTab)
     sticky = True

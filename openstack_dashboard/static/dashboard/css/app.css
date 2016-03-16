@@ -8747,7 +8747,7 @@ fieldset[disabled] .btn-inverse.active {
 }
 @media (min-width: 1920px), (max-width: 768px) {
   #sidebar {
-    width: 170px;
+    width: 160px;
     overflow: auto;
   }
 }
@@ -8757,7 +8757,7 @@ fieldset[disabled] .btn-inverse.active {
     overflow: visible;
   }
   #sidebar.toggled {
-    width: 170px;
+    width: 160px;
     overflow: auto;
   }
 }
@@ -8904,7 +8904,7 @@ fieldset[disabled] .btn-inverse.active {
     position: absolute;
     left: 64px;
     background-color: #121419;
-    width: 170px;
+    width: 160px;
     padding: 14px 18px;
     display: none;
     text-transform: uppercase;
@@ -8931,7 +8931,7 @@ fieldset[disabled] .btn-inverse.active {
     display: none !important;
     position: absolute;
     left: 64px;
-    width: 170px;
+    width: 160px;
     padding-left: 0;
     -webkit-animation-name: fadeIn;
     animation-name: fadeIn;
