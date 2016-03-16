@@ -27,7 +27,7 @@
     {% if dashboard.slug == "project" %}
       <div class="tab-pane fade {% if current.slug == dashboard.slug %}in active{% endif %}" id="{{ dashboard.name }}">
       <ul class="side-menu">
-    {% elif dashboard.slug == "admin" or dashboard.slug == "identity" %}
+    {% elif dashboard.slug == "admin" %}
       <div class="tab-pane fade {% if current.slug == dashboard.slug or current.slug == "identity" %}in active{% endif %}" id="{{ dashboard.name }}">
       <ul class="side-menu">
     {% else %}
