@@ -90,7 +90,7 @@ def horizon_nav(context):
     return {'components': dashboards,
             'project_show_panel_list': ["overview", "instances", "volumes",
                                         "images", "network_topology",
-                                        "access_and_security"],
+                                        "access_and_security", "routers"],
             'admin_show_panel_list': ["overview", "metering", "hypervisors",
                                       "aggregates", "instances", "volumes",
                                       "flavors", "images", "networks",
