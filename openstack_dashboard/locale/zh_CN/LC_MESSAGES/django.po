@@ -2094,12 +2094,12 @@ msgstr "已关闭"
 #: dashboards/admin/info/tables.py:31 dashboards/admin/info/tables.py:162
 #: dashboards/admin/networks/agents/tables.py:85
 msgid "Up"
-msgstr "向上"
+msgstr "在线"
 
 #: dashboards/admin/info/tables.py:32 dashboards/admin/info/tables.py:164
 #: dashboards/admin/networks/agents/tables.py:86
 msgid "Down"
-msgstr "向下"
+msgstr "离线"
 
 #: dashboards/admin/info/tables.py:65 dashboards/admin/metering/tables.py:42
 #: dashboards/admin/metering/tables.py:62
