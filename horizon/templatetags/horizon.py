@@ -91,7 +91,7 @@ def horizon_nav(context):
             'project_show_panel_list': ["overview", "instances", "volumes",
                                         "images", "network_topology",
                                         "access_and_security", "routers"],
-            'admin_show_panel_list': ["overview", "metering", "hypervisors",
+            'admin_show_panel_list': ["overview", "hypervisors",
                                       "aggregates", "instances", "volumes",
                                       "flavors", "images", "networks",
                                       "routers", "defaults", "metadata_defs",
