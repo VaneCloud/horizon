@@ -1037,7 +1037,7 @@ class InstancesTable(tables.DataTable):
     state = tables.Column(get_power_state,
                           filters=(title, filters.replace_underscores),
                           verbose_name=_("Power State"),
-                          hidden=True,
+                          hidden=False,
                           display_choices=POWER_DISPLAY_CHOICES)
     created = tables.Column("created",
                             hidden=True,
