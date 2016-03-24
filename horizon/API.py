@@ -9,7 +9,7 @@ from email.mime.multipart import MIMEMultipart
 import sys
 import MySQLdb
 
-from horizon import approvalConfig
+from django.conf import settings
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -23,40 +23,40 @@ sys.setdefaultencoding('utf-8')
 # 新建用户的角色ID，默认为_member_
 # deafult_roleId = '9fe2ff9ee4384b1894a90878d3e92bab'
 
-def send_mail(subject, content, email_address): 
+def send_mail(subject, content, email_address):
 
-    MAIL_HOST = approvalConfig.MAIL_HOST
-    MAIL_USER = approvalConfig.MAIL_USER
-    MAIL_PASS = approvalConfig.MAIL_PASS
-    MAIL_POSTFIX = approvalConfig.MAIL_POSTFIX
+    MAIL_HOST = settings.MAIL_HOST
+    MAIL_USER = settings.MAIL_USER
+    MAIL_PASS = settings.MAIL_PASS
+    MAIL_POSTFIX = settings.MAIL_POSTFIX
     MAIL_FROM = MAIL_USER + "<" + MAIL_USER + "@" + MAIL_POSTFIX + ">"
 
     try:
-        MAIL_LIST = [email_address] 
+        MAIL_LIST = [email_address]
         if isinstance(content, unicode):
             content = str(content)
-            
+
         message = MIMEText(content, 'plain', 'utf-8')
         if isinstance(subject, unicode):
             subject = unicode(subject)
         message["Subject"] = Header(subject, 'utf-8')
-        message["From"] = MAIL_FROM 
+        message["From"] = MAIL_FROM
         message["To"] = ";".join(MAIL_LIST)
         message["Accept-Language"] = "zh-CN"
         message["Accept-Charset"] = "ISO-8859-1,utf-8"
-        smtp = smtplib.SMTP() 
-        smtp.connect(MAIL_HOST) 
-        smtp.login(MAIL_USER, MAIL_PASS) 
-        smtp.sendmail(MAIL_FROM, MAIL_LIST, message.as_string()) 
-        smtp.close() 
+        smtp = smtplib.SMTP()
+        smtp.connect(MAIL_HOST)
+        smtp.login(MAIL_USER, MAIL_PASS)
+        smtp.sendmail(MAIL_FROM, MAIL_LIST, message.as_string())
+        smtp.close()
         return True
-    except Exception, errmsg: 
+    except Exception, errmsg:
         print "Send mail failed to: %s" % errmsg
         return False
 
 def isCurrentUserAdmin(request):
     try:
-        conn = MySQLdb.connect(approvalConfig.hostname, approvalConfig.username, approvalConfig.password, "keystone",charset='utf8')
+        conn = MySQLdb.connect(settings.KEYSTONE_DB_HOST, settings.username, settings.password, "keystone",charset='utf8')
         cur=conn.cursor()
         sql = 'SELECT user_id FROM token WHERE id = %s'
         current_user_token = request.session['unscoped_token']
@@ -81,7 +81,7 @@ def isCurrentUserAdmin(request):
         cur.close()
         conn.close()
         return isAdmin
-    except Exception, errmsg: 
+    except Exception, errmsg:
          print "Failed check isAdmin: %s" % errmsg
          return False
 
@@ -122,7 +122,7 @@ def delete(url, token):
 
 # 获得管理员令牌API
 def get_token(token):
-    url = approvalConfig.identity_endpoint + '/v2.0/tokens'
+    url = settings.IDENTITY_ENDPOINT + '/v2.0/tokens'
     data = {
         'auth': {
             'tenantName': 'admin',
@@ -136,13 +136,13 @@ def get_token(token):
 
 # 获得管理员令牌API
 def get_token_by_tenant_id(tenant_id):
-    url = approvalConfig.identity_endpoint + '/v2.0/tokens'
+    url = settings.IDENTITY_ENDPOINT + '/v2.0/tokens'
     data = {
         'auth': {
             'tenantId': tenant_id,
             'passwordCredentials': {
-                'username': approvalConfig.adminUsername,
-                'password': approvalConfig.adminPassword
+                'username': settings.ADMIN_USERNAME,
+                'password': settings.ADMIN_PASSWORD
             }
         }
     }
@@ -150,7 +150,7 @@ def get_token_by_tenant_id(tenant_id):
 
 # 添加一个用户API
 def add_user(token, name, password, email):
-    url = approvalConfig.identity_endpoint + '/v2.0/users'
+    url = settings.IDENTITY_ENDPOINT + '/v2.0/users'
     data = {
         'user': {
             'name': name,
@@ -163,18 +163,18 @@ def add_user(token, name, password, email):
 
 # 为用户在tenant中添加角色API
 def add_role(token, tenantId, userId):
-    url = approvalConfig.identity_endpoint + '/v2.0/tenants/%s/users/%s/roles/OS-KSADM/%s' % (tenantId, userId, approvalConfig.deafult_roleId)
+    url = settings.IDENTITY_ENDPOINT + '/v2.0/tenants/%s/users/%s/roles/OS-KSADM/%s' % (tenantId, userId, settings.DEAFULT_ROLEID)
     put(url, get_token(token));
 
 # 删除一个用户
 # 未完成
 def delete_user(userId, token):
-    url = approvalConfig.identity_endpoint + '/v2.0/users/' + userId
+    url = settings.IDENTITY_ENDPOINT + '/v2.0/users/' + userId
     return delete(url, get_token(token))
 
 # 创建一个虚拟机API
 def create_server(tenant_id, name, image_id, flavor_id):
-    url = approvalConfig.compute_endpoint + '/v2/%s/servers' % tenant_id
+    url = settings.COMPUTE_ENDPOINT + '/v2/%s/servers' % tenant_id
     data = {
         'server': {
             'name': name,
@@ -186,7 +186,7 @@ def create_server(tenant_id, name, image_id, flavor_id):
 
 # Network HA
 def get_token_HA(tenant_id):
-    url = approvalConfig.identity_endpoint + '/v2.0/tokens'
+    url = settings.IDENTITY_ENDPOINT + '/v2.0/tokens'
     data = {
         'auth': {
             'tenantId': tenant_id,
@@ -201,7 +201,10 @@ def get_token_HA(tenant_id):
 #select price from database
 def getPrice():
     try:
-        conn = MySQLdb.connect(approvalConfig.hostname, approvalConfig.username, approvalConfig.password, "keystone",charset='utf8')
+        conn = MySQLdb.connect(settings.KEYSTONE_DB_HOST,
+                               settings.KEYSTONE_DB_USERNAME,
+                               settings.KEYSTONE_DB_PASSWORD,
+                               "keystone",charset='utf8')
         cur=conn.cursor()
         sql = 'SELECT vcpu,memory,disk,currency FROM price where id=1'
         cur.execute(sql)
@@ -218,14 +221,17 @@ def getPrice():
         cur.close()
         conn.close()
         return vcpuprice,memoryprice,diskprice,currency
-    except Exception, errmsg: 
+    except Exception, errmsg:
          print "Failed connect database: %s" % errmsg
          return 0,0,0,1
 
 #update price
 def updatePrice(vcpuPrice,memoryPrice,diskPrice,currency):
     try:
-        conn = MySQLdb.connect(approvalConfig.hostname, approvalConfig.username, approvalConfig.password, "keystone",charset='utf8')
+        conn = MySQLdb.connect(settings.KEYSTONE_DB_HOST,
+                               settings.KEYSTONE_DB_USERNAME,
+                               settings.KEYSTONE_DB_PASSWORD,
+                               "keystone",charset='utf8')
         cur=conn.cursor()
         sql = 'UPDATE price SET vcpu=%s , memory=%s , disk=%s , currency=%s where id=1'
         args = [vcpuPrice,memoryPrice,diskPrice,currency]
@@ -234,6 +240,6 @@ def updatePrice(vcpuPrice,memoryPrice,diskPrice,currency):
         cur.close()
         conn.close()
         return True
-    except Exception, errmsg: 
+    except Exception, errmsg:
          print "Failed connect database: %s" % errmsg
          return False

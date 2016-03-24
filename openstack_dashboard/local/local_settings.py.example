@@ -636,3 +636,36 @@ REST_API_REQUIRED_SETTINGS = ['OPENSTACK_HYPERVISOR_FEATURES']
 # and are not encrypted on the browser. This is an experimental API and
 # may be deprecated in the future without notice.
 #REST_API_ADDITIONAL_SETTINGS = []
+SITE_BRANDING = "VaneCloud Dashboard"
+GRAFANA_URL = 'https://192.168.10.8:3000/dashboard/db/vanecloud-vm-dashboard'
+
+# METERING_ENABLED=True: open the metering feature
+# METERING_ENABLED=False: close the metering feature
+METERING_ENABLED=True
+
+# hasApprovalFeature=True: open the approval feature
+# hasApprovalFeature=False: close the approval feature
+HAS_APPROVAL_FEATURE=False
+
+# database
+KEYSTONE_DB_HOST=""
+KEYSTONE_DB_USERNAME = ""
+KEYSTONE_DB_PASSWORD=""
+
+# endpoint
+COMPUTE_ENDPOINT = 'http://172.29.236.100:8774' #nova
+IDENTITY_ENDPOINT = 'http://172.29.236.100:35357' #keystone
+
+# In order to use the admin user to create a virtual machine
+# adminUsername = '4EFFFE084DB1B3AA45C92C79BDA6C66E'
+ADMIN_USERNAME = ''
+ADMIN_PASSWORD = ''
+
+# default roleId is _member_
+DEAFULT_ROLEID = ''
+
+# email information
+MAIL_HOST = ""
+MAIL_USER = ""
+MAIL_PASS = ""
+MAIL_POSTFIX = ""

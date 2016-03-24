@@ -22,7 +22,7 @@
     {% include "horizon/common/_usage_summary.html" %}
     {{ table.render }}
     
-    {% if meteringFeatureEnabled %}
+    {% if METERING_ENABLED %}
       <h3 class="quota-heading">
           {{_("Set Price")}}
       </h3>

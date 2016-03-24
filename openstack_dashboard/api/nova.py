@@ -43,7 +43,6 @@ from openstack_dashboard.api import network_base
 
 from horizon import API
 
-from horizon import approvalConfig
 
 LOG = logging.getLogger(__name__)
 
@@ -200,7 +199,7 @@ class NovaUsage(base.APIResourceWrapper):
     def memory_mb_hours(self):
         return getattr(self, "total_memory_mb_usage", 0)
     ###################################################
-    
+
     #--------------------------------------------------
     @property
     def vcpu_costs(self):
@@ -209,7 +208,7 @@ class NovaUsage(base.APIResourceWrapper):
         vcpuprice = prices[0]
         vcpu_costs = vcpu_hours * vcpuprice
         return vcpu_costs
-    
+
     @property
     def memory_costs(self):
         memory_mb_hours = getattr(self, "total_memory_mb_usage", 0)
@@ -226,7 +225,7 @@ class NovaUsage(base.APIResourceWrapper):
         disk_costs = disk_hours * diskprice
         return disk_costs
     #--------------------------------------------------
-    
+
     @property
     def disk_gb_hours(self):
         return getattr(self, "total_local_gb_usage", 0)

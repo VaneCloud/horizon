@@ -41,7 +41,7 @@
 </div>
 {% if simple_tenant_usage_enabled %}
   {% include "horizon/common/_usage_summary.html" %}
-  {% if meteringFeatureEnabled %}
+  {% if METERING_ENABLED %}
     <div class="col-sm-6">
       <div class="tile">
         <div class="t-header bg-black th-alt">

@@ -10,6 +10,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+from django.conf import settings
 from django.core import urlresolvers
 from django.template.defaultfilters import floatformat  # noqa
 from django.template.defaultfilters import timesince  # noqa
@@ -21,7 +22,6 @@ from horizon.utils import filters
 
 from horizon import API
 
-from horizon import meteringConfig
 
 class CSVSummary(tables.LinkAction):
     name = "csv_summary"
@@ -81,7 +81,7 @@ class GlobalUsageTable(BaseUsageTable):
         name = "global_usage"
         hidden_title = False
         verbose_name = _("Usage")
-        if meteringConfig.meteringFeatureEnabled:
+        if getattr(settings, 'METERING_ENABLED', False):
           columns = ("project", "vcpus", "disk", "memory",
                    "hours", "disk_hours", "vcpu_hours_money", "memory_hours_money", "disk_hours_money")
 	else:

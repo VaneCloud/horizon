@@ -30,8 +30,6 @@ from openstack_dashboard.usage import quotas
 
 from horizon import API
 
-from horizon import meteringConfig
-
 
 class ProjectUsageCsvRenderer(csvbase.BaseCsvResponse):
 
@@ -77,11 +75,10 @@ class ProjectOverview(usage.UsageView):
 
     def get_context_data(self, **kwargs):
         context = super(ProjectOverview, self).get_context_data(**kwargs)
+        context['METERING_ENABLED'] = \
+            getattr(settings, 'METERING_ENABLED', False)
 
-        context['meteringFeatureEnabled'] = \
-            meteringConfig.meteringFeatureEnabled
-
-        if meteringConfig.meteringFeatureEnabled:
+        if getattr(settings, 'METERING_ENABLED', False):
             vcpu_hours = self.usage.summary['vcpu_hours']
             memory_mb_hours = self.usage.summary['memory_mb_hours']
             disk_gb_hours = self.usage.summary['disk_gb_hours']
