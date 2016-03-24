@@ -27,17 +27,14 @@ from horizon.utils import csvbase
 from openstack_dashboard import api
 from openstack_dashboard import usage
 
-from horizon import views
-
 from horizon import messages
 
 from horizon import API
 
-from horizon import meteringConfig
 
 class GlobalUsageCsvRenderer(csvbase.BaseCsvResponse):
 
-    if meteringConfig.meteringFeatureEnabled:
+    if getattr(settings, 'METERING_ENABLED', False):
         columns = [_("Project Name"), _("VCPUs"), _("RAM (MB)"),
                _("Disk (GB)"), _("Usage (Hours)"), _("VCPU Costs"), _("Memory Costs"), _("Disk Costs")]
     else:
@@ -45,7 +42,7 @@ class GlobalUsageCsvRenderer(csvbase.BaseCsvResponse):
                _("Disk (GB)"), _("Usage (Hours)")]
 
     def get_row_data(self):
-        if meteringConfig.meteringFeatureEnabled:
+        if getattr(settings, 'METERING_ENABLED', False):
             for u in self.context['usage'].usage_list:
                 yield (u.project_name or u.tenant_id,
                        u.vcpus,
@@ -76,7 +73,7 @@ class GlobalOverview(usage.UsageView):
 
         request = self.request
 
-        if meteringConfig.meteringFeatureEnabled:
+        if getattr(settings, 'METERING_ENABLED', False):
             ifUpdatePrice = request.GET.get("update_price_name")
 
             prices = API.getPrice()
@@ -85,18 +82,18 @@ class GlobalOverview(usage.UsageView):
             memory_per_hour_price = prices[1]
             disk_per_hour_price = prices[2]
             currency = prices[3]
-            
+
             if ifUpdatePrice == 'update':
                 vcpu_per_hour_price = request.GET.get("vcpu_per_hour_price")
                 memory_per_hour_price = request.GET.get("memory_per_hour_price")
                 disk_per_hour_price = request.GET.get("disk_per_hour_price")
                 currency = request.GET.get("currencyName")
                 isNum = True
-                try: 
+                try:
                     float(vcpu_per_hour_price)
                     float(memory_per_hour_price)
                     float(disk_per_hour_price)
-                except(ValueError): 
+                except(ValueError):
                     isNum = False
                 if isNum:
                     flag = API.updatePrice(vcpu_per_hour_price,memory_per_hour_price,disk_per_hour_price,currency)
@@ -119,8 +116,10 @@ class GlobalOverview(usage.UsageView):
             context['memory_per_hour_price'] = memory_per_hour_price
             context['disk_per_hour_price'] = disk_per_hour_price
             context['currency'] = currency
-            
-        context['meteringFeatureEnabled'] = meteringConfig.meteringFeatureEnabled
+
+        context['METERING_ENABLED'] = getattr(settings,
+                                              'METERING_ENABLED',
+                                               False)
         return context
 
     def get_data(self):
